@@ -202,7 +202,7 @@ PublishScripts/
 !**/[Pp]ackages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/[Pp]ackages/repositories.config
-# NuGet v3's project.json files produces more ignorable files
+# NuGet v3's project.json files Productuces more ignorable files
 *.nuget.props
 *.nuget.targets
 
@@ -344,7 +344,7 @@ ASALocalRun/
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
 
-# MFractors (Xamarin productivity tool) working folder
+# MFractors (Xamarin Productuctivity tool) working folder
 .mfractor/
 
 # Local History for Visual Studio

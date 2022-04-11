@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using BL;
 using Models;
 
@@ -18,11 +17,6 @@ public class ArtHome
         _bl = bl;
     }
 
-    public void ArtStoreHome(IAsbl b1)
-    {
-        b1 = b1;
-    }
-    //Dependency injection
     public void Start()
     {
         bool exit = false;
@@ -61,14 +55,14 @@ public class ArtHome
         } while (!exit);
     }
 
-    public void Home()
-    {
-        Console.WriteLine("\n-------------------------------------------\n");
-    }
-
     private void CreateAccount()
     {
-        CreateAccount(_bl);
+        throw new NotImplementedException();
+    }
+
+    public void Home()
+    {
+        Console.WriteLine("-------------------------------------------");
     }
 
     private void CreateAccount(IAsbl bl)
@@ -91,7 +85,7 @@ public class ArtHome
         string? cPass = Console.ReadLine();
 
 
-        Customer newCustomer = new Customer();
+        var newCustomer = new Customer();
 
         try
         {
@@ -106,9 +100,9 @@ public class ArtHome
             goto EnterCustomer;
         }
 
-        Customer createdCustomer = bl.CreateCustomer(newCustomer);
+        Customer createdCustomer = _bl.CreateCustomer(newCustomer);
         if (createdCustomer != null)
-            Console.WriteLine("\nNew Customer Account created successfully!");
+            Console.WriteLine("New Customer Account created successfully!");
 
     }
     private void Login()
@@ -123,7 +117,7 @@ public class ArtHome
 
 
 
-        Customer login = new Customer();
+        var login = new Customer();
 
         try
         {
@@ -135,38 +129,43 @@ public class ArtHome
             Console.WriteLine(z.Message);
             goto EnterLogin;
         }
-        int results = _b1.LoginChecker(login);
+        int results = _bl.LoginChecker(login);
+        string? responseLogin1;
         switch (results)
         {
-            case 0:
-            InputLogin0:
-                Console.WriteLine("Account email does not exist");
-                Console.WriteLine("Try again? (Y/N)");
-                string? responseLogin0 = Console.ReadLine();
-                if (responseLogin0.Trim().ToUpper()[0] == 'Y')
-                    goto EnterLogin;
-                else if (responseLogin0.Trim().ToUpper()[0] == 'N')
-                    break;
-                else
-                {
-                    Console.WriteLine("Input not recognized");
-                    goto InputLogin0;
-                }
             case 1:
-            InputLogin1:
-                Console.WriteLine("Password is incorrect");
-                Console.WriteLine("Try again? (Y/N)");
-                string? responseLogin1 = Console.ReadLine();
-                if (responseLogin1.Trim().ToUpper()[0] == 'Y')
+            LoginInput1:
+                Console.WriteLine("Account email does not exist.");
+                Console.WriteLine("Would you like to try again? (Y/N)");
+                responseLogin1 = Console.ReadLine();
+
+                if (responseLogin1 != null && responseLogin1.Trim().ToUpper()[1] == 'Y')
                     goto EnterLogin;
-                else if (responseLogin1.Trim().ToUpper()[0] == 'N')
+                else if (responseLogin1.Trim().ToUpper()[1] == 'N')
                     break;
                 else
                 {
                     Console.WriteLine("Input not recognized");
-                    goto InputLogin1;
+                    goto LoginInput1;
                 }
             case 2:
+            LoginInput2:
+                Console.WriteLine("Invalid Input");
+                Console.WriteLine("Try again? (Y/N)");
+                var responseLogin2 = Console.ReadLine();
+
+                if (responseLogin2.Trim().ToUpper()[2] == 'Y')
+                    goto EnterLogin;
+
+                else if (responseLogin2.Trim().ToUpper()[2] == 'N')
+                    break;
+
+                else
+                {
+                    Console.WriteLine("Input incorrect");
+                    goto LoginInput2;
+                }
+            case 3:
                 Console.WriteLine("Login successful!");
                 CustomerMenu(login);
                 break;
@@ -175,104 +174,331 @@ public class ArtHome
     }
     public void CustomerMenu(Customer current)
     {
-    CustomerResponse:
-        Home();
-        Console.WriteLine($"Welcome {current.FName} to the Art Store");
-        Console.WriteLine("What would you like to do?");
-        Console.WriteLine("[1]: Shop");
-        Console.WriteLine("[2]: View Shopping Cart");
-        Console.WriteLine("[3]: View order history");
-        Console.WriteLine("[x]: Logout");
-
-        string? input = Console.ReadLine();
-
-        switch (input.Trim().ToUpper()[0])
+        bool customerLeave = false;
+        do
         {
-            case '1':
+        CustomerResponse:
+            Home();
+            Console.WriteLine($"Welcome {current.FName} to the Art storefront");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("[1]: Shop");
+            Console.WriteLine("[2]: View Shopping Cart");
+            Console.WriteLine("[3]: View order history");
+            Console.WriteLine("[x]: Logout");
+
+            string? input = Console.ReadLine();
+
+            if (input != null)
+                switch (input.Trim().ToUpper()[0])
+                {
+                    case '1':
+                        ShopArt();
+                        break;
+                    case '2':
+                        ViewShopCart();
+                        break;
+                    case '3':
+                        ViewOrderHistory();
+                        break;
+                    case 'x':
+                        customerLeave = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid. Please try again.");
+                        goto CustomerResponse;
+                }
+        } while ((!customerLeave));
+    }
+
+    private void ViewOrderHistory()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShopArt()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ViewShopCart()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShopArt(Customer current)
+    {
+        Order currentOrder = new Order();
+        int count = 0;
+
+        Home();
+        Console.WriteLine("Which storefront would you like to shop at?");
+        custSelectStore = SelectStore();
+
+    Continue:
+        Home();
+        Console.WriteLine("Select the game you would like to add to your cart.");
+        Product shopProduct = SelectProduct(custSelectStore);
+
+        Home();
+
+    shopConfirmation:
+        Console.WriteLine($"Are you should you would like to add {shopProduct.ArtName} at ${shopProduct.Price} to your cart (Y/N)");
+        string shopconfirm = Console.ReadLine();
+
+        switch (shopconfirm.Trim().ToUpper()[0])
+        {
+            case 'Y':
+                AddToShopCart(current, custSelectStore, shopProduct, currentOrder, count);
+                count++;
                 break;
-            case '2':
-                break;
-            case '3':
-                break;
-            case 'x':
+            case 'N':
+                Console.WriteLine("Art Product not added to cart");
                 break;
             default:
-                Console.WriteLine("Invalid Please try again.");
-                goto CustomerResponse;
-
+                Console.WriteLine("Invalid input, Try again");
+                goto shopConfirmation;
+                return;
         }
+
+        if (count > 0)
+        {
+            Console.WriteLine("What would you like to do next?");
+            Console.WriteLine("[1]: Continue shopping?");
+            Console.WriteLine("[2]: Checkout");
+            Console.WriteLine("[x]: Cancel");
+
+            string? cartAnswer = Console.ReadLine();
+
+            switch (cartAnswer.Trim().ToUpper()[0])
+            {
+                case '1':
+                    goto Continue;
+                case '2':
+                    Checkout(currentOrder);
+                    break;
+                case 'X':
+                    break;
+            }
+        }
+
     }
+
+
+    public void AddToShopCart(current, custSelectStore, shopProduct, currentOrder, int count)
+ 
+    {
+        if (count == 0)
+        {
+            currentOrder.CustomerID = current.Id;
+            currentOrder.StoreID = custSelectStore.Id;
+        }
+
+        currentOrder.AddShopCartarts(shopProduct);
+
+
+    }
+    public void Checkout(Order currentOrder)
+    {
+        currentOrder.DateCreated = DateTime.Now;
+        if (_bl.UpdateOrders(currentOrder) == null) ;
+        Console.WriteLine("You have successfully placed your order. Thank you for shopping with us!");
+    }
+
+
+
     public void Manager()
     {
-        Home();
-        Console.WriteLine("Welcome to Manager Menu");
-        Console.WriteLine("[1]: Replenish Stocks");
-        Console.WriteLine("[2]: View Inventory");
-        Console.WriteLine("[3]: Add Product");
-        Console.WriteLine("[x]: Logout");
-
-    ManagerInput:
-        string? mInput = Console.ReadLine();
-
-        switch (mInput.Trim().ToUpper()[0])
+        bool managerExits = false;
+        do
         {
-            case '1':
-                ViewProd();
-                break;
+            Home();
+            Console.WriteLine("Welcome to Manager Menu");
+            Console.WriteLine("[2]: View Products");
+            Console.WriteLine("[3]: Add Product");
+            Console.WriteLine("[x]: Logout");
 
-            case '2':
-                AddProduct();
-                break;
+        ManagerInput:
+            string? mInput = Console.ReadLine();
 
-            case 'X':
-                break;
+            switch (mInput.Trim().ToUpper()[0])
+            {
+                case '1':
+                    ViewProduct();
+                    break;
 
-            default:
-                Console.WriteLine("Input invalid. Please try again.");
-                goto ManagerInput;
+                case '2':
+                    AddProduct();
+                    break;
+
+                case 'X':
+                    break;
+
+                default:
+                    Console.WriteLine("Input invalid. Please try again.");
+                    goto ManagerInput;
+            }
+        } while (managerExits);
+
+    }
+    public StoreFront? SelectStoreFront()
+    {
+        Console.WriteLine("Here are all the storefronts by state: ");
+        List<StoreFront> allStoreFronts = _bl.GetStoreFronts();
+
+        if (allStoreFronts.Count == 0)
+            return null;
+
+        SelectInput:
+        for (int i = 0; i < allStoreFronts.Count; i++)
+            Console.WriteLine(allStoreFronts[i].ToString());
+
+        int select;
+
+        if (Int32.TryParse(Console.ReadLine(), out select) && ((select - 1) >= 0 && (select - 1) < allStoreFronts.Count))
+            return allStoreFronts[select - 1];
+        else
+        {
+            Console.WriteLine("Invalid input, Try again");
+            goto SelectInput;
+        }
+    }
+    public Product SelectProduct(StoreFront getProductStore)
+    {
+        Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
+        List<Product> Products = _bl.GetProducts(getProductStore);
+
+        if (Products.Count == 0)
+            return null;
+
+        ProductInput:
+        for (int i = 0; i < Products.Count; i++)
+            Console.WriteLine($"[{i}]: {Products[i].artName}");
+
+        int ProductSelect;
+
+        if (Int32.TryParse(Console.ReadLine(), out ProductSelect) && ((ProductSelect) >= 0 && (ProductSelectSelect) < Products.Count))
+            return Products[ProductSelect];
+        else
+        {
+            Console.WriteLine("Invalid input, Try again");
+            goto Input;
+        }
+
+        public Product SelectProducts(Store getProductStore)
+        {
+            Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
+            List<Product> Products = _bl.GetProducts(getProductStore);
+
+            if (Products.Count == 0)
+                return null;
+
+            ProductInput:
+            for (int i = 0; i < Products.Count; i++)
+                Console.WriteLine($"[{i}]: {Products[i].artName}");
+
+            int ProductSelect = Select;
+
+            if (Int32.TryParse(Console.ReadLine(), out ProductSelect) && ((ProductSelect) >= 0 && (ProductSelect) < Products.Count))
+                return Products[ProductSelect];
+            else
+            {
+                Console.WriteLine("Invalid input, Try again");
+                goto ProductInput;
+            }
         }
 
     }
 
-    public void ViewProd()
+
+    public void ViewProduct()
     {
-        Console.WriteLine("Below is your inventory for the Art Store. ");
-        List prodList = _bl.
+        Console.WriteLine("Which storefront location would you like  to view?");
+        StoreFront? viewStoreFront = SelectStoreFront();
+
+        Console.WriteLine($"Below is your Products for the Art storefront at the {viewStoreFrontLocation}: ");
+        List<Product> pList = _bl.GetPList(viewStoreFront);
+        if (pList.Count == 0)
+        {
+            Console.WriteLine("Sorry that storefront location has sold out.");
+            return;
+        }
+
+        for (int i = 0; i < pList.Count; i++)
+            Console.WriteLine(pList[i].ToString());
+
+        Console.WriteLine("Please press one key to proceed.");
+        string oneKey = Console.ReadLine();
     }
+
     public void AddProduct()
     {
         Home();
-
-    EnterProductDetails:
-        Console.WriteLine("What is the art supply that you would like to add?");
-        string? prodName = Console.ReadLine();
-
-        Console.WriteLine("What is the price of this item?");
-        double? prodPrice = Convert.ToDouble(Console.ReadLine());
-
-        Product newProd = new Product();
-
-        try
-        {
-            string? prodname = prodName;
-            newProd.ProdName = prodName;
-            newProd.Price = prodPrice.Value;
-        }
-        catch (ValidationException z)
-        {
-            Console.WriteLine(z.Message);
-            goto EnterProductDetails;
-        }
-
-        Product createProduct = _bl.CreateProduct(newProd);
-        if (createProduct != null)
-            Console.WriteLine("\nProduct created successfully");
-
     }
 
 
+        Console.WriteLine("What is the art supply that you would like to add?");
+        string? _ProductName = Console.ReadLine();
 
 
 
+    Console.WriteLine("What is the price of this art?");
+
+        double? _ProductPrice = Convert.ToDouble(Console.ReadLine());
+
+        Product _newProduct = new Product();
+
+        try
+#pragma warning restore CS1519 // Invalid token 'try' in class, record, struct, or interface member declaration
+                                
+        {
+            string? ProducttName = _ProductName;
+#pragma warning disable CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
+#pragma warning disable CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
+    _newProduct.ProductName = _ProductName;
+#pragma warning restore CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
+#pragma warning restore CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
+#pragma warning disable CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
+#pragma warning disable CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
+            _newProduct.Price = _ProductPrice.Value;
+#pragma warning restore CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
+#pragma warning restore CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
+#pragma warning disable CS8124 // Tuple must contain at least two elements.
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+        }
+        catch (ValidationException z
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+)
+#pragma warning restore CS8124 // Tuple must contain at least two elements.
+        {
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
+            Console.WriteLine(z.Message
+#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
+#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS8124 // Tuple must contain at least two elements.
+);
+#pragma warning restore CS8124 // Tuple must contain at least two elements.
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+            goto EnterProductDetails;
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
+        }
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+
+#pragma warning disable CS8803 // Top-level statements must precede namespace and type declarations.
+        Product createProduct = _bl.CreateProduct(newProduct);
+#pragma warning restore CS8803 // Top-level statements must precede namespace and type declarations.
+if (createProduct != null)
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+    Console.WriteLine("Product created successfully");
+
+    }
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
 
 }
+#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
