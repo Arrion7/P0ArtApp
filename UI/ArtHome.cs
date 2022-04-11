@@ -6,9 +6,9 @@ namespace UI;
 public class ArtHome
 {
 
-    /*
-        static void Main() {}
-    */
+    
+    static void Main() {}
+    
 
     private readonly IAsbl _bl;
 
