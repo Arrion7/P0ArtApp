@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Models;
 
 public abstract class Order : ExtraData
@@ -24,13 +26,13 @@ public abstract class Order : ExtraData
 
     public int CustomerId
     {
-        get => _customerId;
+        get => _CustomerId;
         set
         {
             if (value
                 <= 0)
                 throw new ValidationException("Invalid customer ID.");
-            _customerId = value;
+            _CustomerId = value;
         }
     }
 
@@ -43,7 +45,7 @@ public abstract class Order : ExtraData
         if (value
             <= 0)
             throw new ValidationException("Invalid StoreFront ID.");
-        _storeFrontId = value;
+        _StoreFrontId = value;
     }
 
     public void AddShopCartArt(Product addition)

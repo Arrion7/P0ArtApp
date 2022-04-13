@@ -12,4 +12,5 @@ public interface IRepository
     List<Product> GetProducts(StoreFrontId getProduct);
     List<StoreFrontId> GetStoreFrontIdFronts();
     Order UpdateOrders(Order updateOrder);
+    List<StoreFrontId> GetStoreFrontIds();
 }

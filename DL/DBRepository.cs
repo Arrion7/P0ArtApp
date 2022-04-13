@@ -65,4 +65,9 @@ public class DbRepository : IRepository
     {
         throw new NotImplementedException();
     }
+
+    public List<StoreFrontId> GetStoreFrontIdFronts()
+    {
+        throw new NotImplementedException();
+    }
 }

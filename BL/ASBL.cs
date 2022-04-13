@@ -10,14 +10,6 @@
             throw new NotImplementedException();
         }
 
-    public Product CreateProduct(CreateProduct newProduct1)
-    {
-        if (newProduct1 is null)
-        {
-            throw new ArgumentNullException(nameof(newProduct1));
-        }
-
-    }
 
     private Product CreateProduct(Func<Product, Product, Product> createProduct, Product newProduct)
     {
@@ -65,18 +57,7 @@
         }
     
         private readonly IRepository
-
-
-        public int LoginChecker(Customer login)
-        {
-            return _repo.LoginChecker(login);
-        }
-
-
-        public Product CreateProduct(Product newProduct)
-        {
-            throw new NotImplementedException();
-        }
+   
 
     internal class _repo
     {
@@ -102,6 +83,11 @@
         }
 
     public Product CreateProduct(Product newProduct, Product newProduct1)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Product> GetProducts(StoreFrontId? getProductStore)
     {
         throw new NotImplementedException();
     }

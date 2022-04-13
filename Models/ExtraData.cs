@@ -7,4 +7,4 @@ public abstract class ExtraData
     public int StateId { get; set; }
     public int ZipId { get; set; }
     public int ProductId { get; set; }  
-    }
+}

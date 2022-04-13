@@ -78,7 +78,7 @@ public class Customer : ExtraData
         throw new NotImplementedException();
     }
 
-    private List<Order> orderHistory = new List();
+    private List<Order> orderHistory = new ();
 
     public List<Order> GetOrderHistory()
     {
