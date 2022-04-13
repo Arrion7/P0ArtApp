@@ -1,64 +1,60 @@
-using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
-namespace Models;
+    namespace Models;
 
-public abstract class Order : ExtraData
-{
-    private decimal _total = 0.00M;
-
-    private readonly List _cartArt = new List();
-
-    private int _CustomerId = 0;
-
-    private int _StoreFrontId = 0;
-
-    public DateTime DateCreated { get; set; }
-
-    public void AddTotal(decimal addPrice)
+    public class Order : ExtraData
     {
-        _total += addPrice;
-    }
+        private decimal total = 0.00M;
+        private List<Product> cartArt = new List<Product>();
+        private int CustomerId = 0;
+        private int StoreFrontId = 0;
 
-    public decimal Total()
-    {
-        return _total;
-    }
 
-    public int CustomerId
-    {
-        get => _CustomerId;
+        public DateTime DateCreated {get; set;}
+
+        public void AddTotal(decimal addPrice)
+        {
+            total += addPrice;
+        }
+
+        public decimal Total()
+        {
+            return total;
+        }
+
+        public int CustomerId
+        {
+            get => CustomerId;
+            set
+            {
+                if (numId <= 0)
+                    throw new ValidationException("Invalid customer ID.");
+
+                CustomerId = numId;
+            }
+        }
+
+        Public int StoreFrontId
+        {
+        get => StoreFrontId;
         set
         {
-            if (value
-                <= 0)
-                throw new ValidationException("Invalid customer ID.");
-            _CustomerId = value;
+            if(numId <= 0)
+                throw new ValidationException("Invalid input.");
+
+            StoreFrontId = numId;
+        }
+        }
+
+        public void AddShopCartArt(Product addition)
+        {
+            cartArt.Add(addition);
+            AddTotal(addition.Price);
+        }
+
+        public List<Product> CartArt ()
+        {
+            return cartArt;
         }
     }
-
-    public global::System.Int32 GetStoreFrontId()
-    {
-        return GetStoreFrontId();
-    }
-    public void SetStoreFrontId(global::System.Int32 value)
-    {
-        if (value
-            <= 0)
-            throw new ValidationException("Invalid StoreFront ID.");
-        _StoreFrontId = value;
-    }
-
-    public void AddShopCartArt(Product addition)
-    {
-        _cartArt.Add(addition);
-        AddTotal(addition.Price);
-    }
-
-    public List CartArt()
-    {
-        return _cartArt;
-    }
-
-
-
-}

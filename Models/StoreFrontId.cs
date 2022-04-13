@@ -1,57 +1,64 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-namespace Models;
+    using System.ComponentModel.DataAnnotations;
+    using Models;
 
-public interface INewBaseType
-{
-    string StoreFrontCity { get; set; }
-
-    string GetStoreFrontState();
-    void SetStoreFrontState(string value);
-}
-
-public class StoreFrontId : ExtraData
-{
-    public StoreFrontId(string StoreFrontState)
+    public class StoreFrontId : ExtraData
     {
-        this.SetStoreFrontState(StoreFrontState);
+        private string Street = "";
+        private string City = "";
+        private string State = "";
+        private string Zip = "";
+        public string StoreFrontStreet
+        {
+            get => Street;
+            set
+            {
+                if(String.IsNullOrWhiteSpace(value))
+                    throw new ValidationException("Field cannot be left empty");
+                
+                Street = value.Trim();
+            }
+        }
+        public string StoreFrontCity
+        {
+            get => City;
+            set
+            {
+                if(String.IsNullOrWhiteSpace(value))
+                    throw new ValidationException("Field cannot be left empty");
+                
+                City = value.Trim();
+            }
+        }
+        public string StoreFrontState
+        {
+            get => State;
+            set
+            {
+                if(String.IsNullOrWhiteSpace(value))
+                    throw new ValidationException("Field cannot be left empty");
+                
+                State = value.Trim();
+            }
+        }
+
+        public String StoreFrontZip
+        {
+            get => Zip;
+            set
+            {
+                if(String.IsNullOrWhiteSpace(value))
+                    throw new ValidationException("Field cannot be left empty");
+                
+                Zip = value.Trim();
+            }
+        }
+
+
+        public override string ToString()
+        {
+            return $"[{StreetId}]: {Street} ";
+            return $"[{CityId}]: {City} ";
+            return $"[{StateId}]: {State} ";
+            return $@"[{{ZipId}}]: {{Zip}} ";
+        }
     }
-
-    private void SetStoreFrontState(string storeFrontState)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal record struct NewStruct2(object Item1, object Item2, object StoreFrontCity)
-{
-    public static implicit operator (object, object)(NewStruct2 value)
-    {
-        return (value.Item1, value.Item2);
-    }
-
-    public static implicit operator NewStruct2((object, object) value)
-    {
-        return new NewStruct2(value.Item1, value.Item2);
-    }
-}
-
-internal record struct NewStruct1(value Art, int StoreFrontzip, string StoreFrontState, object StoreFrontCity)
-{
-    public static implicit operator (value, int StoreFrontzip, string StoreFrontState)(NewStruct1 value)
-    {
-        return (value.Item1, value.StoreFrontzip, value.StoreFrontState);
-    }
-
-    public static implicit operator NewStruct1((value, int StoreFrontzip, string StoreFrontState) value)
-    {
-        return new NewStruct1(value.Item1, value.StoreFrontzip, value.StoreFrontState);
-    }
-}
-
-public override string ToString()
-{
-    return "[{zipID}]: {zip}";
-}
-
-}

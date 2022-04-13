@@ -5,94 +5,55 @@
 
     public class Asbl : IAsbl
     {
-        public Customer CreateCustomer(Customer newCustomer)
-        {
-            throw new NotImplementedException();
-        }
+	private readonly IRepository _repo;
 
-
-    private Product CreateProduct(Func<Product, Product, Product> createProduct, Product newProduct)
+    public Asbl(IRepository repo)
     {
-        throw new NotImplementedException();
+        _repo = repo;
     }
 
-    public Customer GetCustomer(Customer customer)
+    public Customer CreateCustomer(Customer newCustomer)
     {
-        throw new NotImplementedException();
+        return _repo.CreateCustomer(newCustomer);
+    }
+
+    public int LoginChecker(Customer login)
+    {
+        return _repo.LoginChecker(login);
+    }
+
+    public Customer GetCustomer(Customer existCustomer)
+    {
+        return _repo.GetCustomer(existCustomer);
+    }
+
+    public Product CreateProduct(Product newProduct)
+    {
+        return _repo.CreateProduct(newProduct);
     }
 
     public Product GetProduct(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProduct(StoreFrontId? GetProducttore)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<StoreFrontId> GetStoreFrontIds()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<StoreFrontId> GetStoreFronts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int LoginChecker(Customer login)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Order UpdateOrders(Order updateOrder)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<StoreFrontId> IAsbl.GetStoreFrontIds()
-        {
-            throw new NotImplementedException();
-        }
-    
-        private readonly IRepository
-   
-
-    internal class _repo
     {
-        internal static Product GetProduct(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static int LoginChecker(Customer login)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static Order UpdateOrders(Order updateOrder)
-    {
-        throw new NotImplementedException();
+        return _repo.GetProduct(id);
     }
-}
 
-    public Order UpdateOrder(Order UpdateOrder)
-        {
-            return _repo.UpdateOrders(UpdateOrder);
-        }
+    public List<Product> GetProducts (StoreFrontId getProducts)
+    {
+        return _repo.GetProducts(getProducts);
+    }
+
+    public List<StoreFrontId> GetStoreFrontIds()
+    {
+        return _repo.GetStoreFrontIds();
+    }
+
+    public Order UpdateOrders(Order updateOrder)
+    {
+        return _repo.UpdateOrders(updateOrder);
+    }
 
     public Product CreateProduct(Product newProduct, Product newProduct1)
     {
         throw new NotImplementedException();
     }
-
-    public List<Product> GetProducts(StoreFrontId? getProductStore)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class CreateProduct
-{
 }

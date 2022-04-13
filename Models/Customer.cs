@@ -67,6 +67,7 @@ public class Customer : ExtraData
 
     public List<Order> OrderHistory { get => orderHistory; set => orderHistory = value; }
     public List<Order> OrderHistory1 { get => orderHistory; set => orderHistory = value; }
+    public string? CPass { get; set; }
 
     public Customer(string email)
     {
@@ -79,6 +80,7 @@ public class Customer : ExtraData
     }
 
     private List<Order> orderHistory = new ();
+    public readonly int Id;
 
     public List<Order> GetOrderHistory()
     {

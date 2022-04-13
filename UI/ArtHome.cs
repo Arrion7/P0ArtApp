@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using BL;
 using Models;
 
@@ -23,7 +24,7 @@ public class ArtHome
             Console.WriteLine("[1] Create an Account");
             Console.WriteLine("[2] Login into existing account");
 
-        CInput:
+            CInput:
             string? input = Console.ReadLine();
 
             switch (input.Trim().ToUpper())
@@ -144,7 +145,7 @@ public class ArtHome
                     goto LoginInput1;
                 }
             case 2:
-            LoginInput2:
+                LoginInput2:
                 Console.WriteLine("Invalid Input");
                 Console.WriteLine("Try again? (Y/N)");
                 var responseLogin2 = Console.ReadLine();
@@ -172,7 +173,7 @@ public class ArtHome
         bool customerLeave = false;
         do
         {
-        CustomerResponse:
+            CustomerResponse:
             Home();
             Console.WriteLine($"Welcome {current.FName} to the Art storefront");
             Console.WriteLine("What would you like to do?");
@@ -187,7 +188,7 @@ public class ArtHome
                 switch (input.Trim().ToUpper()[0])
                 {
                     case '1':
-                        ShopArt();
+                        ShopProduct();
                         break;
                     case '2':
                         ViewShopCart();
@@ -210,7 +211,7 @@ public class ArtHome
         throw new NotImplementedException();
     }
 
-    private void ShopArt()
+    private void ShopProduct()
     {
         throw new NotImplementedException();
     }
@@ -220,30 +221,28 @@ public class ArtHome
         throw new NotImplementedException();
     }
 
-    public void ShopArt(Customer current)
+    public void shopProduct(Customer current, Order currentOrder, object custSelectStore)
     {
-        Order currentOrder = new Order();
-        int count = 0;
 
         Home();
         Console.WriteLine("Which storefront would you like to shop at?");
-        custSelectStore = SelectStore();
 
-    Continue:
+        Continue:
         Home();
-        Console.WriteLine("Select the are supply.");
-        Product shopProduct = SelectProduct(custSelectStore);
+        Console.WriteLine("Select the arT supply.");
+        StoreFrontId selectStoreFront = (StoreFrontId)SelectStoreFront;
+        Product shopProduct = SelectProductss(selectStoreFront);
 
         Home();
 
-    shopConfirmation:
+        shopConfirmation:
         Console.WriteLine($"Are you should you would like to add {shopProduct.ArtName} at ${shopProduct.Price} to your cart (Y/N)");
         string shopconfirm = Console.ReadLine();
 
         switch (shopconfirm.Trim().ToUpper()[0])
         {
             case 'Y':
-                AddToShopCart(current, custSelectStore, shopProduct, currentOrder, count);
+                AddToShopCart(current, selectStoreFront, shopProduct, currentOrder, count);
                 count++;
                 break;
             case 'N':
@@ -278,17 +277,21 @@ public class ArtHome
 
     }
 
+    private Product SelectProducts(object custSelectStore)
+    {
+        throw new NotImplementedException();
+    }
 
     public void AddToShopCart(Customer currentCustomer, StoreFrontId custSelectStore, Product shopProduct, Order currentOrder, int count)
  
     {
         if (count == 0)
         {
-            currentOrder.CustomerID = current.Id;
-            currentOrder.StoreID = custSelectStore.Id;
+            currentOrder.CustomerId = currentCustomer.Id;
+            currentOrder.GetStoreFrontId = custSelectStore.Id;
         }
 
-        currentOrder.AddShopCartarts(shopProduct);
+        currentOrder.AddShopCartArt(shopProduct);
 
 
     }
@@ -299,9 +302,12 @@ public class ArtHome
         Console.WriteLine("You have successfully placed your order. Thank you for shopping with us!");
     }
 
-
-
     public void Manager()
+    {
+        Manager(mInput);
+    }
+
+    public void Manager(string? mInput)
     {
         bool managerExits = false;
         do
@@ -357,7 +363,7 @@ public class ArtHome
             goto SelectInput;
         }
     }
-    public Product SelectProduct(StoreFront getProductStore)
+    public Product SelectProducts(StoreFront getProductStore)
     {
         Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
         List<Product> Products = _bl.GetProducts(getProductStore);
@@ -381,7 +387,7 @@ public class ArtHome
 
     }
 
-    private Product SelectProducts(Store getProductStore)
+    private Product SelectProductss(Store getProductStore)
     {
         Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
         List<Product> Products = _bl.GetProducts(getProductStore);
