@@ -5,11 +5,6 @@ namespace UI;
 
 public class ArtHome
 {
-
-    
-    static void Main() {}
-    
-
     private readonly IAsbl _bl;
 
     public ArtHome(IAsbl bl)
@@ -71,7 +66,7 @@ public class ArtHome
 
         Console.WriteLine("Welcome!");
 
-    EnterCustomer:
+        EnterCustomer:
         Console.WriteLine("Please begin creating your account by entering your first name: ");
         string? fname = Console.ReadLine();
 
@@ -236,7 +231,7 @@ public class ArtHome
 
     Continue:
         Home();
-        Console.WriteLine("Select the game you would like to add to your cart.");
+        Console.WriteLine("Select the are supply.");
         Product shopProduct = SelectProduct(custSelectStore);
 
         Home();
@@ -284,7 +279,7 @@ public class ArtHome
     }
 
 
-    public void AddToShopCart(current, custSelectStore, shopProduct, currentOrder, int count)
+    public void AddToShopCart(Customer currentCustomer, StoreFrontId custSelectStore, Product shopProduct, Order currentOrder, int count)
  
     {
         if (count == 0)
@@ -340,10 +335,10 @@ public class ArtHome
         } while (managerExits);
 
     }
-    public StoreFront? SelectStoreFront()
+    public StoreFrontId? SelectStoreFront()
     {
-        Console.WriteLine("Here are all the storefronts by state: ");
-        List<StoreFront> allStoreFronts = _bl.GetStoreFronts();
+        Console.WriteLine("Here are all the storefronts by State: ");
+        List<StoreFrontId> allStoreFronts = _bl.GetStoreFrontIds();
 
         if (allStoreFronts.Count == 0)
             return null;
@@ -384,29 +379,29 @@ public class ArtHome
             goto Input;
         }
 
-        public Product SelectProducts(Store getProductStore)
+    }
+
+    private Product SelectProducts(Store getProductStore)
+    {
+        Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
+        List<Product> Products = _bl.GetProducts(getProductStore);
+
+        if (Products.Count == 0)
+            return null;
+
+        ProductInput:
+        for (int i = 0; i < Products.Count; i++)
+            Console.WriteLine($"[{i}]: {Products[i].artName}");
+
+        int ProductSelect = Select;
+
+        if (Int32.TryParse(Console.ReadLine(), out ProductSelect) && ((ProductSelect) >= 0 && (ProductSelect) < Products.Count))
+            return Products[ProductSelect];
+        else
         {
-            Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
-            List<Product> Products = _bl.GetProducts(getProductStore);
-
-            if (Products.Count == 0)
-                return null;
-
-            ProductInput:
-            for (int i = 0; i < Products.Count; i++)
-                Console.WriteLine($"[{i}]: {Products[i].artName}");
-
-            int ProductSelect = Select;
-
-            if (Int32.TryParse(Console.ReadLine(), out ProductSelect) && ((ProductSelect) >= 0 && (ProductSelect) < Products.Count))
-                return Products[ProductSelect];
-            else
-            {
-                Console.WriteLine("Invalid input, Try again");
-                goto ProductInput;
-            }
+            Console.WriteLine("Invalid input, Try again");
+            goto ProductInput;
         }
-
     }
 
 
@@ -433,8 +428,7 @@ public class ArtHome
     public void AddProduct()
     {
         Home();
-    }
-
+    
 
         Console.WriteLine("What is the art supply that you would like to add?");
         string? _ProductName = Console.ReadLine();
@@ -448,57 +442,25 @@ public class ArtHome
         Product _newProduct = new Product();
 
         try
-#pragma warning restore CS1519 // Invalid token 'try' in class, record, struct, or interface member declaration
-                                
+
         {
-            string? ProducttName = _ProductName;
-#pragma warning disable CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
-#pragma warning disable CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
-    _newProduct.ProductName = _ProductName;
-#pragma warning restore CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
-#pragma warning restore CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
-#pragma warning disable CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
-#pragma warning disable CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
+            string? ProductName = _ProductName;
+
+            _newProduct.ProductName = _ProductName;
             _newProduct.Price = _ProductPrice.Value;
-#pragma warning restore CS1519 // Invalid token '=' in class, record, struct, or interface member declaration
-#pragma warning restore CS1519 // Invalid token ';' in class, record, struct, or interface member declaration
-#pragma warning disable CS8124 // Tuple must contain at least two elements.
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
         }
-        catch (ValidationException z
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-)
-#pragma warning restore CS8124 // Tuple must contain at least two elements.
+        catch (ValidationException z)
         {
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-            Console.WriteLine(z.Message
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS8124 // Tuple must contain at least two elements.
-);
-#pragma warning restore CS8124 // Tuple must contain at least two elements.
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
+            Console.WriteLine(z.Message);
+
             goto EnterProductDetails;
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
         }
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
 
-#pragma warning disable CS8803 // Top-level statements must precede namespace and type declarations.
         Product createProduct = _bl.CreateProduct(newProduct);
-#pragma warning restore CS8803 // Top-level statements must precede namespace and type declarations.
-if (createProduct != null)
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-    Console.WriteLine("Product created successfully");
+        if (createProduct != null)
 
+        Console.WriteLine("Product created successfully");
     }
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+    
 
 }
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected

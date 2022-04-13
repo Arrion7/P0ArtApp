@@ -1,133 +1,124 @@
+using System;
+using System.Diagnostics;
+
 namespace Models;
 
-public class StoreFrontId : ExtraData
+public class NewBaseType
 {
+    NewStruct.IsNullOrWhitespaceNewStruct1 ValidationException(StoreFrontId StoreFrontState)
+    {
+        if (StoreFrontId is null)
+        {
+            throw new ArgumentNullException(nameof(StoreFrontId));
+        }
 
-    street = value.Trim();
-
-
-public override string ToString()                                                     rt
-{
-#pragma warning disable CS1002 // ; expected
-#pragma warning disable CS1010 // Newline in constant
-    return $"[{streetID}]: {street};
-#pragma warning restore CS1010 // Newline in constant
-#pragma warning restore CS1002 // ; expected
+        if (string.IsNullOrEmpty(StoreFrontState))
+        {
+            throw new System.ArgumentException($"'{nameof(StoreFrontState)}' cannot be null or empty.", nameof(StoreFrontState));
+        }
+    }
 }
 
-public string StoreCity
+public interface INewBaseType
 {
-    get => city;
-    set
+    string StoreFrontCity { get; set; }
+
+    string GetStoreFrontState();
+    void SetStoreFrontState(string value);
+    string ToString();
+    string ToString();
+    string ToString();
+}
+
+
+    public int StoreFrontZip = Convert.ToInt32("");
+
+    public string StoreFrontCity
     {
+        get => city;
+        set
+        {
+            if (string.IsNullOrWhitespace(value))
+                throw new ValidationException(message: "Field cannot be left empty");
+
+            city = value.Trim();
+        }
+    }
+
+    public string GetStoreFrontState()
+    {
+        return State;
+    }
+
+    public void SetStoreFrontState(string value)
+    {
+
         if (string.IsNullOrWhitespace(value))
+
+
+
             throw new ValidationException(message: "Field cannot be left empty");
 
-        city = value.Trim();
+        State = value.Trim();
     }
-}
-public override string ToString()
-{
-#pragma warning disable CS1002 // ; expected
-#pragma warning disable CS1010 // Newline in constant
-    return $"[{cityID}]: {city};
-#pragma warning restore CS1010 // Newline in constant
-#pragma warning restore CS1002 // ; expected
-}
 
-public string storestate = ""
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-;
-{
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
- 
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-    get => state;
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS8124 // Tuple must contain at least two elements.
-#pragma warning disable CS1002 // ; expected
-#pragma warning disable CS1001 // Identifier expected
-#pragma warning disable CS1026 // ) expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-    set
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
+
+
+
+    public override string ToString() => $"[{streetID}]: {street}";
+    public override string ToString()
     {
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-        if (string.IsNullOrWhitespace(value)
-#pragma warning disable CS1003 // Syntax error, ',' expected
-#pragma warning disable CS1001 // Identifier expected
-)
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning restore CS1026 // ) expected
-#pragma warning restore CS1001 // Identifier expected
-#pragma warning restore CS1002 // ; expected
-#pragma warning restore CS8124 // Tuple must contain at least two elements.
-            throw new ValidationException(message: "Field cannot be left empty");
-#pragma warning restore CS1003 // Syntax error, ',' expected
-#pragma warning restore CS1001 // Identifier expected
 
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS8124 // Tuple must contain at least two elements.
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning disable CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-state = value.Trim(
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning restore CS0116 // A namespace cannot directly contain members such as fields, methods or statements
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-#pragma warning disable CS1022 // Type or namespace definition, or end-of-file expected
-);
-#pragma warning restore CS8124 // Tuple must contain at least two elements.
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
+        return $"[{cityID}]: {city}";
+
     }
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
-}
-#pragma warning restore CS1022 // Type or namespace definition, or end-of-file expected
 
-public override string ToString()
-{
-#pragma warning disable CS1010 // Newline in constant
-#pragma warning disable CS1002 // ; expected
-    return $"[{stateID}]: {state};
-#pragma warning restore CS1002 // ; expected
-#pragma warning restore CS1010 // Newline in constant
-}
-
-
-public int storezip = Convert.ToInt32("");
-#pragma warning disable CS8803 // Top-level statements must precede namespace and type declarations.
-{
-    get => zip;
-#pragma warning disable CS1002 // ; expected
-    set
-#pragma warning restore CS1002 // ; expected
+    public override string ToString()
     {
-        if (string.IsNullOrWhitespace(value))
-            throw new ValidationException(message: "Field cannot be left empty");
 
-        zip = value.Trim();
+
+    }
+
+public class StoreFrontId : NewBaseType, ExtraData
+{
+    public StoreFrontId(string StoreFrontState)
+    {
+        this.SetStoreFrontState(StoreFrontState);
+    
+
+    
+        if(zip = value.TrimNewStruct2);
+    }
+
+internal record struct NewStruct2(object Item1, object Item2)
+{
+    public static implicit operator (object, object)(NewStruct2 value)
+    {
+        return (value.Item1, value.Item2);
+    }
+
+    public static implicit operator NewStruct2((object, object) value)
+    {
+        return new NewStruct2(value.Item1, value.Item2);
     }
 }
-#pragma warning restore CS8803 // Top-level statements must precede namespace and type declarations.
+
+internal record struct NewStruct1(value Art, int StoreFrontzip, string StoreFrontState)
+{
+    public static implicit operator (value, int StoreFrontzip, string StoreFrontState)(NewStruct1 value)
+    {
+        return (value.Item1, value.StoreFrontzip, value.StoreFrontState);
+    }
+
+    public static implicit operator NewStruct1((value, int StoreFrontzip, string StoreFrontState) value)
+    {
+        return new NewStruct1(value.Item1, value.StoreFrontzip, value.StoreFrontState);
+    }
+}
 
 public override string ToString()
 {
-#pragma warning disable CS1002 // ; expected
-#pragma warning disable CS1010 // Newline in constant
-    return $"[{zipID}]: {zip};
-#pragma warning restore CS1010 // Newline in constant
-#pragma warning restore CS1002 // ; expected
-
+    return "[{zipID}]: {zip}";
 }
 
+}

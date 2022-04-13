@@ -7,9 +7,9 @@ public interface IRepository
     Customer CreateCustomer(Customer newCustomer);
     int LoginChecker(Customer login);
     Customer GetCustomer(Customer customer);
-    Product CreateProduct(Product newPro);
+    Product CreateProduct(Product newProduct);
     Product GetProduct(int id);
-    List<Product> GetProducts(Store getInv);
-    List<Store> GetStoreFronts();
+    List<Product> GetProducts(StoreFrontId getProduct);
+    List<StoreFrontId> GetStoreFrontIdFronts();
     Order UpdateOrders(Order updateOrder);
 }

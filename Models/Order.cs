@@ -1,4 +1,4 @@
-namespace final_p0.Models;
+namespace Models;
 
 public abstract class Order : ExtraData
 {
@@ -6,9 +6,9 @@ public abstract class Order : ExtraData
 
     private readonly List _cartArt = new List();
 
-    private int _customerId = 0;
+    private int _CustomerId = 0;
 
-    private int _storeFrontId = 0;
+    private int _StoreFrontId = 0;
 
     public DateTime DateCreated { get; set; }
 

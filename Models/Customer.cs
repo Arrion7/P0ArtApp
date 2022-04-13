@@ -1,12 +1,23 @@
-namespacee models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
+namespace Models;
+
+public interface ICustomer
+{
+    string FName { get; set; }
+    string LName { get; set; }
+    string cPass { get; set; }
+    string Email { get; set; }
+    List<object> OrderHistory { get; set; }
+}
 
 public class Customer : ExtraData
 {
     private string _fname = "";
 
     private string _lname = "";
-    private string _cpass = "";
+    private string _cPass = "";
 
     public string FName
     {
@@ -30,7 +41,7 @@ public class Customer : ExtraData
             _lname = value.Trim();
         }
     }
-    public string CPass
+    public string cPass
     {
         get => _cPass;
         set
@@ -54,6 +65,9 @@ public class Customer : ExtraData
         }
     }
 
+    public List<Order> OrderHistory { get => orderHistory; set => orderHistory = value; }
+    public List<Order> OrderHistory1 { get => orderHistory; set => orderHistory = value; }
+
     public Customer(string email)
     {
         this.Email = email;
@@ -64,8 +78,17 @@ public class Customer : ExtraData
         throw new NotImplementedException();
     }
 
+    private List<Order> orderHistory = new List();
 
-    public List<> OrderHistory { get; set; } = new List();
+    public List<Order> GetOrderHistory()
+    {
+        return OrderHistory;
+    }
+
+    public void SetOrderHistory(List<Order> value)
+    {
+        OrderHistory = value;
+    }
 }
 
 

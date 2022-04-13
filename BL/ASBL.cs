@@ -1,73 +1,112 @@
-using DL;
-using Models;
+    using DL;
+    using Models;
 
-namespace BL;
+    namespace BL;
 
-public class Asbl : IAsbl
-{
-    private readonly IRepository _repo;
-
-    public Asbl(IRepository repo)
+    public class Asbl : IAsbl
     {
-        _repo = repo;
+        public Customer CreateCustomer(Customer newCustomer)
+        {
+            throw new NotImplementedException();
+        }
+
+    public Product CreateProduct(CreateProduct newProduct1)
+    {
+        if (newProduct1 is null)
+        {
+            throw new ArgumentNullException(nameof(newProduct1));
+        }
+
     }
 
-    public Customer CreateCustomer(Customer newCustomer)
+    private Product CreateProduct(Func<Product, Product, Product> createProduct, Product newProduct)
     {
-        return _repo.CreateCustomer(newCustomer);
-    }
-
-    public int LoginChecker(Customer login)
-    {
-        return _repo.LoginChecker(login);
+        throw new NotImplementedException();
     }
 
     public Customer GetCustomer(Customer customer)
     {
-        return _repo.GetCustomer(customer);
-    }
-
-    public Product CreateProduct(Product newProduct)
-    {
         throw new NotImplementedException();
     }
 
-    public Product GetProducts(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Product> GetProducts(Store getProductStore)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Product> GetProducts(StoreFrontId getProductStore)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
-    public Product CreateProduct(Product newProduct)
-    {
-        return _repo.CreateProduct(newProduct);
-    }
     public Product GetProduct(int id)
-    {
-        return _repo.GetProduct(id);
-    }
-    public List GetProducts(StoreFrontId getProduct)
-    {
-        return _repo.GetProducts(getProduct);
-    }
+        {
+            throw new NotImplementedException();
+        }
 
-    public List<StoreFront> GetStoreFronts()
-    {
-        return _repo.GetStoreFronts();
-    }
+        public List<Product> GetProduct(StoreFrontId? GetProducttore)
+        {
+            throw new NotImplementedException();
+        }
 
-    public Order UpdateOrders(Order updateOrder)
+        public List<StoreFrontId> GetStoreFrontIds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<StoreFrontId> GetStoreFronts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int LoginChecker(Customer login)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order UpdateOrders(Order updateOrder)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<StoreFrontId> IAsbl.GetStoreFrontIds()
+        {
+            throw new NotImplementedException();
+        }
+    
+        private readonly IRepository
+
+
+        public int LoginChecker(Customer login)
+        {
+            return _repo.LoginChecker(login);
+        }
+
+
+        public Product CreateProduct(Product newProduct)
+        {
+            throw new NotImplementedException();
+        }
+
+    internal class _repo
     {
-        return _repo.UpdateOrders(updateOrder);
+        internal static Product GetProduct(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static int LoginChecker(Customer login)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Order UpdateOrders(Order updateOrder)
+    {
+        throw new NotImplementedException();
     }
+}
+
+    public Order UpdateOrder(Order UpdateOrder)
+        {
+            return _repo.UpdateOrders(UpdateOrder);
+        }
+
+    public Product CreateProduct(Product newProduct, Product newProduct1)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class CreateProduct
+{
 }
