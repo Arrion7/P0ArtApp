@@ -5,7 +5,7 @@ namespace DL;
 public interface IRepository
 {
     Customer CreateCustomer(Customer newCustomer);
-    int LoginChecker(Customer login);
+    int LoginValid(Customer login);
     Customer GetCustomer(Customer customer);
     Product CreateProduct(Product newProduct);
     Product GetProduct(int id);

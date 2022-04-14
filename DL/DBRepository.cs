@@ -70,4 +70,9 @@ public class DbRepository : IRepository
     {
         throw new NotImplementedException();
     }
+
+    public int LoginValid(Customer login)
+    {
+        throw new NotImplementedException();
+    }
 }

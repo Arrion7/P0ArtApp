@@ -17,9 +17,9 @@
         return _repo.CreateCustomer(newCustomer);
     }
 
-    public int LoginChecker(Customer login)
+    public int LoginValid(Customer login)
     {
-        return _repo.LoginChecker(login);
+        return _repo.LoginValid(login);
     }
 
     public Customer GetCustomer(Customer existCustomer)
@@ -53,6 +53,11 @@
     }
 
     public Product CreateProduct(Product newProduct, Product newProduct1)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Product GetProducts(int id)
     {
         throw new NotImplementedException();
     }

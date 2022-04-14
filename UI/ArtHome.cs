@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using BL;
+using DL;
 using Models;
 
 namespace UI;
@@ -48,12 +49,7 @@ public class ArtHome
                     goto CInput;
             }
 
-        } while (!exit);
-    }
-
-    private void CreateAccount()
-    {
-        throw new NotImplementedException();
+        }while (!exit);
     }
 
     public void Home()
@@ -61,7 +57,7 @@ public class ArtHome
         Console.WriteLine("-------------------------------------------");
     }
 
-    private void CreateAccount(IAsbl bl)
+    public void CreateAccount(IAsbl bl)
     {
         Home();
 
@@ -81,7 +77,7 @@ public class ArtHome
         string? cPass = Console.ReadLine();
 
 
-        var newCustomer = new Customer();
+        Customer newCustomer = new Customer();
 
         try
         {
@@ -101,11 +97,11 @@ public class ArtHome
             Console.WriteLine("New Customer Account created successfully!");
 
     }
-    private void Login()
+    public void Login()
     {
         Home();
 
-    EnterLogin:
+        EnterLogin:
         Console.WriteLine("Please enter your email");
         string? email = Console.ReadLine();
         Console.WriteLine("Please enter your password");
@@ -113,7 +109,7 @@ public class ArtHome
 
 
 
-        var login = new Customer();
+        Customer login = new Customer();
 
         try
         {
@@ -125,19 +121,19 @@ public class ArtHome
             Console.WriteLine(z.Message);
             goto EnterLogin;
         }
-        int results = _bl.LoginChecker(login);
-        string? responseLogin1;
+
+        int results = _bl.LoginValid(login);
         switch (results)
         {
             case 1:
-            LoginInput1:
+                LoginInput1:
                 Console.WriteLine("Account email does not exist.");
                 Console.WriteLine("Would you like to try again? (Y/N)");
-                responseLogin1 = Console.ReadLine();
+                LoginResponse = Console.ReadLine();
 
-                if (responseLogin1 != null && responseLogin1.Trim().ToUpper()[1] == 'Y')
+                if (LoginResponse != null && LoginResponse.Trim().ToUpper()[1] == 'Y')
                     goto EnterLogin;
-                else if (responseLogin1.Trim().ToUpper()[1] == 'N')
+                else if (LoginResponse.Trim().ToUpper()[1] == 'N')
                     break;
                 else
                 {
@@ -148,12 +144,12 @@ public class ArtHome
                 LoginInput2:
                 Console.WriteLine("Invalid Input");
                 Console.WriteLine("Try again? (Y/N)");
-                var responseLogin2 = Console.ReadLine();
+                Customer LoginResponse2 = Console.ReadLine();
 
-                if (responseLogin2.Trim().ToUpper()[2] == 'Y')
+                if (LoginResponse2.Trim().ToUpper()[2] == 'Y')
                     goto EnterLogin;
 
-                else if (responseLogin2.Trim().ToUpper()[2] == 'N')
+                else if (LoginResponse2.Trim().ToUpper()[2] == 'N')
                     break;
 
                 else
@@ -175,20 +171,20 @@ public class ArtHome
         {
             CustomerResponse:
             Home();
-            Console.WriteLine($"Welcome {current.FName} to the Art storefront");
+            Console.WriteLine($"Welcome {current.FName} to the Art Store");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("[1]: Shop");
             Console.WriteLine("[2]: View Shopping Cart");
-            Console.WriteLine("[3]: View order history");
+            Console.WriteLine("[3]: View Order History");
             Console.WriteLine("[x]: Logout");
 
             string? input = Console.ReadLine();
 
             if (input != null)
-                switch (input.Trim().ToUpper()[0])
+                switch (input.Trim().ToUpper()[1])
                 {
                     case '1':
-                        ShopProduct();
+                        shopProduct();
                         break;
                     case '2':
                         ViewShopCart();
@@ -203,41 +199,29 @@ public class ArtHome
                         Console.WriteLine("Invalid. Please try again.");
                         goto CustomerResponse;
                 }
-        } while ((!customerLeave));
+        }while((!customerLeave));
     }
 
-    private void ViewOrderHistory()
+    public void shopProduct(Customer currentCustomer, StoreFrontId custSelectStoreFront)
     {
-        throw new NotImplementedException();
-    }
-
-    private void ShopProduct()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void ViewShopCart()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void shopProduct(Customer current, Order currentOrder, object custSelectStore)
-    {
+  	  Order currentOrder = new Order();
+        int count = 0;
 
         Home();
         Console.WriteLine("Which storefront would you like to shop at?");
+	    StoreFrontId ShopProduct = custSelectStoreFront;
 
         Continue:
         Home();
-        Console.WriteLine("Select the arT supply.");
-        StoreFrontId selectStoreFront = (StoreFrontId)SelectStoreFront;
-        Product shopProduct = SelectProductss(selectStoreFront);
+        Console.WriteLine("Select the art supply you would like to buy.");
+        Product shopProducts = SelectProducts(custSelectStoreFront);
+
 
         Home();
 
-        shopConfirmation:
-        Console.WriteLine($"Are you should you would like to add {shopProduct.ArtName} at ${shopProduct.Price} to your cart (Y/N)");
-        string shopconfirm = Console.ReadLine();
+        ShopConfirmation:
+        Console.WriteLine(value: $"Are you sure you would like to add {shopProducts.ArtName} at ${shopProducts.Price} to your cart (Y/N)");
+        string? shopConfirm = Console.ReadLine();
 
         switch (shopconfirm.Trim().ToUpper()[0])
         {
@@ -246,15 +230,17 @@ public class ArtHome
                 count++;
                 break;
             case 'N':
-                Console.WriteLine("Art Product not added to cart");
+                Console.WriteLine("Art supply was not added to cart");
                 break;
             default:
                 Console.WriteLine("Invalid input, Try again");
-                goto shopConfirmation;
+		    goto ShopConfirmation;
                 return;
+                
         }
-
-        if (count > 0)
+	  
+	  
+	  if(count > 0)
         {
             Console.WriteLine("What would you like to do next?");
             Console.WriteLine("[1]: Continue shopping?");
@@ -277,17 +263,16 @@ public class ArtHome
 
     }
 
-    private Product SelectProducts(object custSelectStore)
+    private Product SelectProducts(StoreFrontId custSelectStoreFront)
     {
         throw new NotImplementedException();
     }
 
     public void AddToShopCart(Customer currentCustomer, StoreFrontId custSelectStore, Product shopProduct, Order currentOrder, int count)
- 
     {
         if (count == 0)
         {
-            currentOrder.CustomerId = currentCustomer.Id;
+            currentOrder.OrderCustomerId = currentCustomer.Id;
             currentOrder.GetStoreFrontId = custSelectStore.Id;
         }
 
@@ -304,24 +289,19 @@ public class ArtHome
 
     public void Manager()
     {
-        Manager(mInput);
-    }
-
-    public void Manager(string? mInput)
-    {
         bool managerExits = false;
         do
         {
             Home();
             Console.WriteLine("Welcome to Manager Menu");
-            Console.WriteLine("[2]: View Products");
-            Console.WriteLine("[3]: Add Product");
+            Console.WriteLine("[1]: View Products");
+            Console.WriteLine("[2]: Add Product");
             Console.WriteLine("[x]: Logout");
 
-        ManagerInput:
+        	ManagerInput:
             string? mInput = Console.ReadLine();
 
-            switch (mInput.Trim().ToUpper()[0])
+            switch (mInput.Trim().ToUpper()[1])
             {
                 case '1':
                     ViewProduct();
@@ -331,6 +311,10 @@ public class ArtHome
                     AddProduct();
                     break;
 
+		    case '3':
+                    ReplenishProduct();
+                    break;
+
                 case 'X':
                     break;
 
@@ -338,15 +322,15 @@ public class ArtHome
                     Console.WriteLine("Input invalid. Please try again.");
                     goto ManagerInput;
             }
-        } while (managerExits);
+        }while(managerExits);
 
     }
     public StoreFrontId? SelectStoreFront()
     {
-        Console.WriteLine("Here are all the storefronts by State: ");
+        Console.WriteLine("Here are all the StoreFronts by State: ");
         List<StoreFrontId> allStoreFronts = _bl.GetStoreFrontIds();
 
-        if (allStoreFronts.Count == 0)
+        if (allStoreFrontIds.Count == 0)
             return null;
 
         SelectInput:
@@ -363,10 +347,10 @@ public class ArtHome
             goto SelectInput;
         }
     }
-    public Product SelectProducts(StoreFront getProductStore)
+    public Product SelectProducts(StoreFront getProductsStoreFront)
     {
-        Console.WriteLine($"Here is the Products for the {getProductStore.StoreLocation} store:");
-        List<Product> Products = _bl.GetProducts(getProductStore);
+        Console.WriteLine($"Here are the art supplies for the {getProductsStore.Store} store:");
+        List<Product> Products = _bl.GetProducts(getProductsStoreFront);
 
         if (Products.Count == 0)
             return null;
@@ -414,18 +398,18 @@ public class ArtHome
     public void ViewProduct()
     {
         Console.WriteLine("Which storefront location would you like  to view?");
-        StoreFront? viewStoreFront = SelectStoreFront();
+        StoreFrontId? viewStoreFront = SelectStoreFront();
 
-        Console.WriteLine($"Below is your Products for the Art storefront at the {viewStoreFrontLocation}: ");
-        List<Product> pList = _bl.GetPList(viewStoreFront);
-        if (pList.Count == 0)
+        Console.WriteLine($"Below is your product for the Art storefront at the {Street, City, State}: ");
+        List<Product> ArtSupply = _bl.GetArtSupply(viewStoreFront);
+        if (ArtSupply.Count == 0)
         {
-            Console.WriteLine("Sorry that storefront location has sold out.");
+            Console.WriteLine("Sorry that storefront location has sold out in the art supply you selected.");
             return;
         }
 
-        for (int i = 0; i < pList.Count; i++)
-            Console.WriteLine(pList[i].ToString());
+        for (int i = 0; i < ArtSupply.Count; i++)
+            Console.WriteLine(ArtSupply[i].ToString());
 
         Console.WriteLine("Please press one key to proceed.");
         string oneKey = Console.ReadLine();
@@ -434,39 +418,48 @@ public class ArtHome
     public void AddProduct()
     {
         Home();
-    
 
+	  EnterProductDetails:
         Console.WriteLine("What is the art supply that you would like to add?");
-        string? _ProductName = Console.ReadLine();
+        string? productName = Console.ReadLine();
 
+        Console.WriteLine("What is the price of this art supply?");
 
+        decimal? productPrice = Convert.ToLong(Console.ReadLine());
 
-    Console.WriteLine("What is the price of this art?");
-
-        double? _ProductPrice = Convert.ToDouble(Console.ReadLine());
-
-        Product _newProduct = new Product();
+        Product newProduct = new Product();
 
         try
-
         {
-            string? ProductName = _ProductName;
-
-            _newProduct.ProductName = _ProductName;
-            _newProduct.Price = _ProductPrice.Value;
+            newProduct.ProductName = productName;
+            newProduct.Price = productPrice.Value;
         }
         catch (ValidationException z)
         {
             Console.WriteLine(z.Message);
-
             goto EnterProductDetails;
         }
 
         Product createProduct = _bl.CreateProduct(newProduct);
         if (createProduct != null)
 
-        Console.WriteLine("Product created successfully");
+        Console.WriteLine("Art Supply created successfully");
     }
-    
+
+
+    public void ReplenishProduct()
+    {
+        Home();
+        Console.WriteLine("Please choose a location to replenish the art supplies at.");
+        StoreFrontId? ReplenishProduct = SelectStoreFront();
+
+        Home();
+        Product? ReplenishProduct = SelectInventory(ReplenishProduct);
+
+        Console.WriteLine($"Please enter the new quantity of {ReplenishProduct.ArtName}");
+        int newQuantity = Convert.ToInt32(Console.ReadLine());
+
+        _bl.UpdateQuantity(newQuantity, ReplenishProduct);
+    }
 
 }

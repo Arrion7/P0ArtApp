@@ -9,7 +9,7 @@ public interface ICustomer
     string LName { get; set; }
     string cPass { get; set; }
     string Email { get; set; }
-    List<object> OrderHistory { get; set; }
+    List<Order> OrderHistory { get; set; }
 }
 
 public class Customer : ExtraData
@@ -90,6 +90,11 @@ public class Customer : ExtraData
     public void SetOrderHistory(List<Order> value)
     {
         OrderHistory = value;
+    }
+
+    public static explicit operator Customer(string? v)
+    {
+        throw new NotImplementedException();
     }
 }
 

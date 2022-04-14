@@ -9,6 +9,7 @@
         private List<Product> cartArt = new List<Product>();
         private int CustomerId = 0;
         private int StoreFrontId = 0;
+        int numId; 
 
 
         public DateTime DateCreated {get; set;}
@@ -23,19 +24,19 @@
             return total;
         }
 
-        public int CustomerId
+        public int OrderCustomerId
         {
-            get => CustomerId;
+            get => OrderCustomerId;
             set
             {
                 if (numId <= 0)
                     throw new ValidationException("Invalid customer ID.");
 
-                CustomerId = numId;
+                OrderCustomerId = numId;
             }
         }
 
-        Public int StoreFrontId
+        public int OrderStoreFrontId
         {
         get => StoreFrontId;
         set
