@@ -2,7 +2,7 @@ namespace Models;
 
 public class OrderHistory
 {
-    public int StoreFrontId {get; set;}
+    public int StoreFront {get; set;}
     public int OrderId {get; set;}
     public decimal TotalPrice {get; set;}
     public int ArtSupplyQty {get; set;}

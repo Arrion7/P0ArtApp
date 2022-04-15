@@ -3,13 +3,13 @@ using Models;
 
 namespace BL;
 
-public class Asbl : Iasbl
+public class Asbl : IAsbl
 {
     private readonly IRepository _repo;
 
     public Asbl(IRepository repo)
     {
-        _repo = repo
+        _repo = repo;
     }
 
     public List<Customer> GetAllCustomers();
