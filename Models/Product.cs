@@ -1,35 +1,11 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Models;
 
-public class Product : ExtraData
+public class Product
 {
-    private string _artName = "";
+    public string Name { get; set; } = "";
+    public int Id { get; set; }
+    public decimal Price { get; set; }
+    public string Details { get; set; } = "";
+    public int Quantity { get; set; } = 0;
 
-    private decimal _price = 0.00M;
-
-    public string ArtName
-    {
-        get => _artName;
-        set
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ValidationException("Field cannot be left empty");
-            }
-            _artName = value.Trim();
-        }
-    }
-
-    public decimal Price
-    {
-        get => _price;
-        set
-        {
-            if (value <= 0)
-                throw new ValidationException("Price must be greater than 0.");
-
-            _price = value;
-        }
-    }
 }

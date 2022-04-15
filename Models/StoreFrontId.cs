@@ -1,7 +1,7 @@
     using System.ComponentModel.DataAnnotations;
     using Models;
 
-    public class StoreFrontId : ExtraData
+    public class StoreFront : ExtraData
     {
         private string Street = "";
         private string City = "";
@@ -54,11 +54,12 @@
         }
 
 
-        public override string ToString()
+        public DisplayProducts()
         {
-            return $"[{StreetId}]: {Street} ";
-            return $"[{CityId}]: {City} ";
-            return $"[{StateId}]: {State} ";
-            return $@"[{{ZipId}}]: {{Zip}} ";
+            int i = 1;
+            foreach(Product product in StoreFrontInv)
+            {
+                Console.WriteLine($"{i} {product.ArtName} | S{product.Price} | {product.Quantity} QTY.{product.Details}");
+            
         }
     }

@@ -1,13 +1,11 @@
-﻿using BL;
-using DL; 
+﻿using UI;
+using DL;
+using BL;
 
-namespace UI;
-
-
-
+// Connection string for DB Microsoft Azure
 string connectionString = File.ReadAllText("./connectionString.txt");
 
-IRepository repo = new DbRepository(connectionString);
+IRepository repo = new DBRepository(connectionString);
 IAsbl bl = new Asbl(repo);
-new ArtStoreHome(bl).Start();
- 
+
+new LoginMenu(bl).Menu();

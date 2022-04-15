@@ -1,16 +1,17 @@
 using Models;
-
 namespace DL;
 
 public interface IRepository
 {
-    Customer CreateCustomer(Customer newCustomer);
-    int LoginValid(Customer login);
-    Customer GetCustomer(Customer customer);
-    Product CreateProduct(Product newProduct);
-    Product GetProduct(int id);
-    List<Product> GetProducts(StoreFrontId getProduct);
-    List<StoreFrontId> GetStoreFrontIdFronts();
-    Order UpdateOrders(Order updateOrder);
-    List<StoreFrontId> GetStoreFrontIds();
+    StoreFront GetStoreFrontInv(StoreFront currentStoreFront);
+    List<Customer> GetAllCustomers();
+    List<StoreFront> GetAllStoreFronts();
+    List<OrderHistory> GetOrderHistoryC(Customer Customer);
+    List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront);
+    Customer CreateCustomer(Customer CustomerAdd);
+    void CreateOrder(Order order);
+    void CreateShopCart(Order order);
+    void AddProduct(Product product);
+    void UpdateStoreFrontInv(Order order);
+
 }

@@ -1,64 +1,52 @@
-    using DL;
-    using Models;
+using DL;
+using Models;
 
-    namespace BL;
+namespace BL;
 
-    public class Asbl : IAsbl
-    {
-	private readonly IRepository _repo;
+public class Asbl : Iasbl
+{
+    private readonly IRepository _repo;
 
     public Asbl(IRepository repo)
     {
-        _repo = repo;
+        _repo = repo
     }
 
-    public Customer CreateCustomer(Customer newCustomer)
+    public List<Customer> GetAllCustomers();
     {
-        return _repo.CreateCustomer(newCustomer);
+        return _repo.GetAllCustomers();
     }
 
-    public int LoginValid(Customer login)
+    public Customer addCustomer(Customer customerAdd)
     {
-        return _repo.LoginValid(login);
+        return _repo.CreateAccount(customerAdd);
     }
 
-    public Customer GetCustomer(Customer existCustomer)
+    public void addToOrder(Order order)
     {
-        return _repo.GetCustomer(existCustomer);
+        _repo.createOrder(order);
     }
 
-    public Product CreateProduct(Product newProduct)
+    public List<StoreFront> GetAllStoreFronts()
     {
-        return _repo.CreateProduct(newProduct);
+        return _repo.GetStoreFronts();
     }
 
-    public Product GetProduct(int id)
+    public StoreFront GetStoreFrontInv(StoreFront currenStoreFront)
     {
-        return _repo.GetProduct(id);
+        return _repo.GetStoreFrontInv(currenStoreFront);
     }
 
-    public List<Product> GetProducts (StoreFrontId getProducts)
+    public List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront)
     {
-        return _repo.GetProducts(getProducts);
+        List<OrderHistory> OrderHistorySF = _repo.GetOrderHistorySF(_StoreFront);
+        return OrderHistorySF;
     }
 
-    public List<StoreFrontId> GetStoreFrontIds()
+    public List<OrderHistory> GetOrderHistoryC(Customer customer)
     {
-        return _repo.GetStoreFrontIds();
+        List<OrderHistory> OrderHistoryC = _.GetOrderHistoryC(customer);
+        return OrderHistoryC;
     }
 
-    public Order UpdateOrders(Order updateOrder)
-    {
-        return _repo.UpdateOrders(updateOrder);
-    }
-
-    public Product CreateProduct(Product newProduct, Product newProduct1)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Product GetProducts(int id)
-    {
-        throw new NotImplementedException();
-    }
 }

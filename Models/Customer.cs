@@ -5,14 +5,14 @@ namespace Models;
 
 public interface ICustomer
 {
-    string FName { get; set; }
-    string LName { get; set; }
-    string cPass { get; set; }
-    string Email { get; set; }
-    List<Order> OrderHistory { get; set; }
+    string FName {get; set;}
+    string LName {get; set;}
+    string cPass {get; set;}
+    string Email {get; set;}
+    List<Order> OrderHistory {get; set;}
 }
 
-public class Customer : ExtraData
+public class Customer 
 {
     private string _fname = "";
 

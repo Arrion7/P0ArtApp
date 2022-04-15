@@ -1,20 +1,14 @@
 using Models;
 
-namespace BL;
+namespace UI;
 
 public interface IAsbl
 {
-    Customer CreateCustomer(Customer newCustomer);
-    int LoginValid(Customer login);
-    Customer GetCustomer(Customer customer);
-    Product CreateProduct(Product newProduct);
-    Product GetProducts(int id);
-    List<Product> GetProducts()
-    {
-        return GetProducts(null);
-    }
-
-    List<Product> GetProducts(StoreFrontId? getProductStore);
-    List<StoreFrontId> GetStoreFrontIds();
-    Order UpdateOrders(Order updateOrder);
+    List<Customer> GetAllCustomers();
+    Customer addCustomer(Customer customerAdd);
+    void addToOrder(Order order);
+    List<StoreFront> GetAllStoreFronts();
+    StoreFront getStoreFrontInv(StoreFront currentStoreFront);
+    List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront);
+    List<OrderHistory> GetOrderHistoryC(Customer customer);
 }
