@@ -1,10 +1,11 @@
 ﻿using UI;
 using DL;
 using BL;
+using IAsbl = BL.IAsbl;
 
 string connectionString = File.ReadAllText("./connectionString.txt");
 
 IRepository repo = new DBRepository(connectionString);
-IRepository bl = new Asbl(repo);
+IAsbl bl = new Asbl(repo);
 
-new ArtHome(bl).Home();
+new ArtHome((IAsbl)bl).Home();

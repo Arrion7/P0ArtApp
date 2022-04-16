@@ -5,7 +5,7 @@ public class ShopCart
 
     private List<Product> Details {get; set;} = new List<Product>() { };
 
-    private decimal TotalPrice { get; set; } = 0.00;
+    private decimal TotalPrice { get; set; } = 0.00M;
 
     public void AddArtSupply(Product ArtSupply)
     {
@@ -65,5 +65,10 @@ public class ShopCart
             i++;
         }
         Console.WriteLine($"Total Price: ${TotalPrice}");
+    }
+
+    public void ShopCartContents()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -7,9 +7,15 @@ public class ArtHome
 {
 
     private readonly IAsbl _bl;
+    private readonly string cPassword;
+
     public ArtHome(IAsbl bl)
     {
         _bl = bl;
+    }
+
+    public ArtHome(BL.IAsbl bl)
+    {
     }
 
     public void Home()
@@ -20,7 +26,7 @@ public class ArtHome
         Console.WriteLine("[2] Login into existing account");
 
         Login:
-        string? reply = Console.ReadLine().Trim();
+        string reply = Console.ReadLine().Trim();
         Customer Customer = new Customer();
 
         if (reply == "1")
@@ -46,10 +52,10 @@ public class ArtHome
         {
             return;
         }
-        else if
+        else 
         {
             Customer customer = Customer;
-            new CustomerHome(_bl, customer).StoreHome();
+            new CustomerView(_bl, customer).ArtHome();
         
         }
         Console.WriteLine("Logged Out.");
@@ -80,7 +86,7 @@ public class ArtHome
                 }
                 else
                 {
-                    Cpasswordtry
+                    Cpasswordtry:
                     Console.WriteLine("Incorrect input. Please Try Again. [Y/N]");
                     string CcustInput = Console.ReadLine().Trim().ToUpper();
 
@@ -95,7 +101,7 @@ public class ArtHome
                     else
                     {
                         Console.WriteLine("Invalid Input");
-                        goto Cpassword;
+                        goto Cpasswordtry;
                     }
                 }
             }
@@ -155,9 +161,9 @@ public class ArtHome
         Customer newCustomer = new Customer();
 
         newCustomer.CustomerEmail = CustomerEmail;
-        newCustomer.Cpassword = Cpassword;
+        newCustomer.Cpassword = cPassword;
 
-        _bl.AddCustomer(newCustomer);
+        _bl.addCustomer(newCustomer);
 
         return newCustomer;
     }

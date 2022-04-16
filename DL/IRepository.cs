@@ -11,7 +11,12 @@ public interface IRepository
     Customer CreateCustomer(Customer CustomerAdd);
     void CreateOrder(Order order);
     void CreateShopCart(Order order);
+    List<StoreFront> GetStoreFronts();
     void AddProduct(Product product);
     void UpdateStoreFrontInv(Order order);
+    StoreFront GetStoreFrontInv(StoreFront currenStoreFront);
+}
 
+public class OrderHistory
+{
 }

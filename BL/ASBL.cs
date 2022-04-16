@@ -1,5 +1,5 @@
 using DL;
-using Models;
+using OrderHistory = DL.OrderHistory;
 
 namespace BL;
 
@@ -12,14 +12,9 @@ public class Asbl : IAsbl
         _repo = repo;
     }
 
-    public Customer addCustomer(Customer customerAdd)
-    {
-        return _repo.CreateAccount(customerAdd);
-    }
-
     public void addToOrder(Order order)
     {
-        _repo.createOrder(order);
+        _repo.CreateOrder(order);
     }
 
     public List<StoreFront> GetAllStoreFronts()
@@ -27,9 +22,9 @@ public class Asbl : IAsbl
         return _repo.GetStoreFronts();
     }
 
-    public StoreFront GetStoreFrontInv(StoreFront currenStoreFront)
+    public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
     {
-        return _repo.GetStoreFrontInv(currenStoreFront);
+        return _repo.GetStoreFrontInv(currentStoreFront);
     }
 
     public List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront)
@@ -40,8 +35,12 @@ public class Asbl : IAsbl
 
     public List<OrderHistory> GetOrderHistoryC(Customer customer)
     {
-        List<OrderHistory> OrderHistoryC = _.GetOrderHistoryC(customer);
+        List<OrderHistory> OrderHistoryC = _repo.GetOrderHistoryC(customer);
         return OrderHistoryC;
     }
 
+}
+
+public interface IAsbl
+{
 }

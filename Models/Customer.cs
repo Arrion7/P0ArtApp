@@ -81,6 +81,8 @@ public class Customer
 
     private List<Order> orderHistory = new ();
     public readonly int Id;
+    public readonly string Cpassword;
+    public readonly string CustomerEmail;
 
     public List<Order> GetOrderHistory()
     {

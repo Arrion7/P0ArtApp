@@ -2,32 +2,32 @@ using Models;
 
 namespace UI;
 
-public class Cshopping
+public class CustomerView
 {
     private readonly IAsbl _bl;
     private Customer _Customer = new Customer();
     private ShopCart ShopCart = new ShopCart();
     private StoreFront currentStoreFront = new StoreFront();
 
-    public Cshopping(IAsbl bl, Customer Customer)
+    public CustomerView(IAsbl bl, Customer Customer)
     {
         _bl = bl;
         _Customer = Customer;
     }
 
-    public void Cshopping()
+    public void ArtHome()
     {
         List<StoreFront> StoreFronts = _bl.GetAllStoreFronts();
 
         Console.WriteLine("==================================================================");
 
         StoreFrontLocation:
-        Console.WriteLine("Select a StoreFront to shop at or View your order history"); 
+        Console.WriteLine("Select a StoreFront to start shopping or View your order history"); 
 
         int i = 1;
         foreach (StoreFront StoreFront in StoreFronts)
         {
-            Console.WriteLine($"[{i}] {StoreFront.Name} | { StoreFront.Addr ess}");
+            Console.WriteLine($"[{i}] {StoreFront.Name} | { StoreFront.Address}");
             i++;
         }
 
@@ -57,7 +57,7 @@ public class Cshopping
         }
 
         currentStoreFront = _bl.getStoreFrontInv(currentStoreFront);
-        string result = Cshopping();
+        string result = Home();
 
         if (result == "3")
         {
@@ -65,7 +65,7 @@ public class Cshopping
         }
     }
 
-    private string Cshopping()
+    private string Home()
     {
         Options:
         Console.WriteLine("[1] Add product to ShopCart");
@@ -88,24 +88,16 @@ public class Cshopping
                 if (ShopCart.IsShopCartEmpty())
                 {
                     Console.WriteLine("ShopCart is empty.");
-                    Console.WriteLine("==================================================================");
                 }
-                break;
-                else if
-                {
-                ShopCart.ShopCartContents();
-                Console.WriteLine("==================================================================");
-                }
-
+                
                 else
                 {
-                    bool CheckingOut = Checkout();
+                    bool CheckingOut = GetCheckingOut();
 
                     if (CheckingOut)
                     {
                         return "x";
                     }
-                    Console.WriteLine("==================================================================");
                 }
                 break;
 
@@ -146,7 +138,12 @@ public class Cshopping
                 Console.WriteLine("Invalid Input");
                 break;
         }
-        goto CshoppingOptions;
+        goto Options;
+
+        bool GetCheckingOut()
+        {
+            return Checkout();
+        }
     }
 
     private void AddProduct()

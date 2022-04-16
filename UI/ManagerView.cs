@@ -6,19 +6,11 @@ namespace UI;
 public class ManagerView
 {
     private readonly IAsbl _bl;
-    private Manager _Customer = new Manager();
     private StoreFront currentStoreFront = null;
 
-    public ManagerView(IAsbl bl, Manager Customer)
-    {
-        _bl = bl;
-        _Customer = Customer;
-    }
-
-    public void ManagerView()
+    public ManagerView()
     {
         Console.WriteLine("Manager View");
-      
 
         ManagerOptions:
         if (currentStoreFront != null)
@@ -47,7 +39,7 @@ public class ManagerView
                 break;
 
             case "3":
-                _Customer.AddProduct();
+                object value = ManagerView.AddProduct();
                 break;
 
             case "x":
@@ -59,6 +51,11 @@ public class ManagerView
         }
 
         goto ManagerOptions;
+    }
+
+    private static object AddProduct()
+    {
+        throw new NotImplementedException();
     }
 
     private void SelectStoreFront()
@@ -87,7 +84,7 @@ public class ManagerView
         else
         {
             Console.WriteLine("Invalid Input");
-            goto StoreFrontSelection;
+            goto StoreFrontDecision;
         }
     }
 
@@ -97,7 +94,7 @@ public class ManagerView
 
         foreach (OrderHistory order in OrderHistorySF)
         {
-            Console.WriteLine($"{order.customer.CustomerName} | {order.DateOrdered}\n${order.ArtsupplyPrice} | {order.ProductName} | {order.ArtSupplyQty} Qty.");
+            Console.WriteLine(value: $"{order.CustomerFName} | {order.DateOrdered} |${order.ArtsupplyPrice} | {order.ProductName} | {order.ArtSupplyQty} Qty.");
         }
     }
 }
