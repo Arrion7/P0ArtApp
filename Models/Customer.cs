@@ -67,7 +67,7 @@ public class Customer
 
     public List<Order> OrderHistory { get => orderHistory; set => orderHistory = value; }
     public List<Order> OrderHistory1 { get => orderHistory; set => orderHistory = value; }
-    public string? CPass { get; set; }
+    public string CPass { get; set; }
 
     public Customer(string email)
     {
@@ -92,10 +92,6 @@ public class Customer
         OrderHistory = value;
     }
 
-    public static explicit operator Customer(string? v)
-    {
-        throw new NotImplementedException();
-    }
 }
 
 

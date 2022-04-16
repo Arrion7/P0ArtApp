@@ -3,7 +3,7 @@ namespace DL;
 
 public interface IRepository
 {
-    StoreFront GetStoreFrontInv(StoreFront currentStoreFront);
+    StoreFront GetStoreFrontInv(StoreFront currentStoreFront, object currentStoreFront1);
     List<Customer> GetAllCustomers();
     List<StoreFront> GetAllStoreFronts();
     List<OrderHistory> GetOrderHistoryC(Customer Customer);

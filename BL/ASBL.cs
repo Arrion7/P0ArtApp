@@ -12,11 +12,6 @@ public class Asbl : IAsbl
         _repo = repo;
     }
 
-    public List<Customer> GetAllCustomers();
-    {
-        return _repo.GetAllCustomers();
-    }
-
     public Customer addCustomer(Customer customerAdd)
     {
         return _repo.CreateAccount(customerAdd);

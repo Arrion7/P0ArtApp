@@ -1,13 +1,15 @@
     using System.ComponentModel.DataAnnotations;
     using Models;
 
-    public class StoreFront : ExtraData
+    public class StoreFront 
     {
         private string Street = "";
         private string City = "";
         private string State = "";
         private string Zip = "";
-        public string StoreFrontStreet
+    public readonly object Name;
+
+    public string StoreFrontStreet
         {
             get => Street;
             set
@@ -54,12 +56,13 @@
         }
 
 
-        public DisplayProducts()
+        public DisplayStoreFrontInv()
         {
             int i = 1;
             foreach(Product product in StoreFrontInv)
             {
                 Console.WriteLine($"{i} {product.ArtName} | S{product.Price} | {product.Quantity} QTY.{product.Details}");
-            
+            }              
         }
     }
+

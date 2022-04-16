@@ -37,7 +37,7 @@ public class ShopCart
     public void ClearShopCart()
     {
         Details = new List<Product>() { };
-        TotalPrice = 0.00;
+        TotalPrice = 0.00M;
     }
 
     public bool IsShopCartEmpty()

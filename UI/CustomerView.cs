@@ -1,16 +1,15 @@
 using Models;
-using BL;
 
 namespace UI;
 
 public class Cshopping
 {
-    private readonly Iasbl _bl;
+    private readonly IAsbl _bl;
     private Customer _Customer = new Customer();
     private ShopCart ShopCart = new ShopCart();
     private StoreFront currentStoreFront = new StoreFront();
 
-    public Cshopping(Iasbl bl, Customer Customer)
+    public Cshopping(IAsbl bl, Customer Customer)
     {
         _bl = bl;
         _Customer = Customer;
@@ -28,7 +27,7 @@ public class Cshopping
         int i = 1;
         foreach (StoreFront StoreFront in StoreFronts)
         {
-            Console.WriteLine($"[{i}] {StoreFront.Name} | {StoreFront.Address}");
+            Console.WriteLine($"[{i}] {StoreFront.Name} | { StoreFront.Addr ess}");
             i++;
         }
 
@@ -57,7 +56,7 @@ public class Cshopping
             goto StoreFrontLocation;
         }
 
-        currentStoreFront = _bl.GetStoreFrontStoreFrontInv(currentStoreFront);
+        currentStoreFront = _bl.getStoreFrontInv(currentStoreFront);
         string result = Cshopping();
 
         if (result == "3")

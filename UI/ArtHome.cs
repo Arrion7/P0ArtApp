@@ -20,7 +20,7 @@ public class ArtHome
         Console.WriteLine("[2] Login into existing account");
 
         Login:
-        string reply = Console.ReadLine().Trim();
+        string? reply = Console.ReadLine().Trim();
         Customer Customer = new Customer();
 
         if (reply == "1")

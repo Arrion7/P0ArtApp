@@ -5,5 +5,6 @@ using BL;
 string connectionString = File.ReadAllText("./connectionString.txt");
 
 IRepository repo = new DBRepository(connectionString);
+IRepository bl = new Asbl(repo);
 
-new ArtHome((IAsbl)new Asbl(repo)).Account();
+new ArtHome(bl).Home();
