@@ -15,6 +15,10 @@ public interface IAsbl
 
 public class OrderHistory
 {
+    public static object? StoreFrontName;
     public readonly object? Customer;
     public readonly object? DateOrdered;
+    public readonly object Customeremail;
+
+    public static object? Name { get; set; }
 }

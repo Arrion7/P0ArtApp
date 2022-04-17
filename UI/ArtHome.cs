@@ -20,6 +20,11 @@ public class ArtHome
 
     public void Home()
     {
+        Home(Customer);
+    }
+
+    public void Home(Customer customer)
+    {
         Console.WriteLine("Welcome to The Art Shop!");
         Console.WriteLine("What would you like to do?");
         Console.WriteLine("[1] Create an Account");
@@ -54,9 +59,15 @@ public class ArtHome
         }
         else 
         {
-            Customer customer = Customer;
-            new CustomerView(_bl, customer).ArtHome();
-        
+            if (Customer.IsManager == true)
+            {
+                Manager manager = (Manager)Customer;
+                object manager1 = new Manager(_bl, manager).Manager;
+
+            }
+
+            new CustomerView(_bl, Customer).ArtHome();
+
         }
         Console.WriteLine("Logged Out.");
     }
@@ -156,7 +167,7 @@ public class ArtHome
         }
 
         Console.WriteLine("Enter a password");
-        string password = Console.ReadLine().Trim();
+        string Cpassword = Console.ReadLine().Trim();
 
         Customer newCustomer = new Customer();
 
@@ -166,5 +177,19 @@ public class ArtHome
         _bl.addCustomer(newCustomer);
 
         return newCustomer;
+    }
+}
+
+internal class Manager
+{
+    internal readonly object Manager;
+
+    public Manager(IAsbl bl, Manager manager)
+    {
+    }
+
+    public static explicit operator Manager(Customer v)
+    {
+        throw new NotImplementedException();
     }
 }

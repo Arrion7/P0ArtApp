@@ -27,7 +27,7 @@ public class CustomerView
         int i = 1;
         foreach (StoreFront StoreFront in StoreFronts)
         {
-            Console.WriteLine($"[{i}] {StoreFront.Name} | { StoreFront.Address}");
+            Console.WriteLine($"[{i}] {StoreFront.Name} | { StoreFront.GetAddress()}");
             i++;
         }
 
@@ -114,7 +114,7 @@ public class CustomerView
 
                     if (Cresponse == "Y")
                     {
-                        ShopCart.EmptyShopCart();
+                        ShopCart.IsShopCartEmpty();
                         Console.WriteLine("Your ShopCart is now empty.");
                         Console.WriteLine("==================================================================");
 
@@ -150,7 +150,6 @@ public class CustomerView
     {
         ArtSupplyToAdd:
         StoreFrontInv();
-        Console.WriteLine("==================================================================");
 
         Console.WriteLine("Which Art Supply would you like to add:");
         string Option = Console.ReadLine().Trim();
@@ -252,36 +251,6 @@ public class CustomerView
             {
                 ArtSupply.Quantity += product.Quantity;
             }
-        }
-    }
-
-    private bool Checkout()
-    {
-        CheckoutOption:
-        ShopCart.ShopCartContents();
-        Console.WriteLine("==================================================================");
-
-        Console.WriteLine("Are you ready to checkout? [Y/N]");
-        string Option = Console.ReadLine().Trim().ToUpper();
-
-        if (Option == "Y")
-        {
-            Console.WriteLine("One moment.");
-            Order order = new Order();
-            order.customer = _Customer;
-            order.ShopCart = ShopCart;
-            order.StoreFront = currentStoreFront;
-            _bl.AddOrder(order);
-            return true;
-        }
-        else if (Option == "N")
-        {
-            return false;
-        }
-        else
-        {
-            Console.WriteLine("Invalid Input");
-            goto CheckoutOption;
         }
     }
     private void StoreFrontInv()

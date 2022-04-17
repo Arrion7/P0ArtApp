@@ -68,6 +68,7 @@ public class Customer
     public List<Order> OrderHistory { get => orderHistory; set => orderHistory = value; }
     public List<Order> OrderHistory1 { get => orderHistory; set => orderHistory = value; }
     public string CPass { get; set; }
+    public string CustomerName { get; set; }
 
     public Customer(string email)
     {
@@ -80,9 +81,11 @@ public class Customer
     }
 
     private List<Order> orderHistory = new ();
+    public object CustomerFname;
     public readonly int Id;
     public readonly string Cpassword;
     public readonly string CustomerEmail;
+    public readonly bool IsManager;
 
     public List<Order> GetOrderHistory()
     {

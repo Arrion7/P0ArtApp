@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-	  <ProjectReference Include="..\bl\BL.csproj" />
-	  <ProjectReference Include="..\dl\DL.csproj" />
-	  <ProjectReference Include="..\models\Models.csproj" />
+		<ProjectReference Include="..\bl\BL.csproj" />
+		<ProjectReference Include="..\dl\DL.csproj" />
+		<ProjectReference Include="..\models\Models.csproj" />
 	</ItemGroup>
 
-	
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>

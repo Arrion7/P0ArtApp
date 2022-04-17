@@ -1,4 +1,3 @@
-using Models;
 using BL;
 
 namespace UI;
@@ -6,6 +5,7 @@ namespace UI;
 public class ManagerView
 {
     private readonly IAsbl _bl;
+    private Manager _customer = new Manager;
     private StoreFront currentStoreFront = null;
 
     public ManagerView()
@@ -94,7 +94,7 @@ public class ManagerView
 
         foreach (OrderHistory order in OrderHistorySF)
         {
-            Console.WriteLine(value: $"{order.CustomerFName} | {order.DateOrdered} |${order.ArtsupplyPrice} | {order.ProductName} | {order.ArtSupplyQty} Qty.");
+            Console.WriteLine(value: $"{order.Customeremail} | {order.DateOrdered} |${order.ArtSupplyPrice} | {OrderHistory.ProductName} | {order.ArtSupplyQty} Qty.");
         }
     }
 }

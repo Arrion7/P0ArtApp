@@ -19,4 +19,7 @@ public interface IRepository
 
 public class OrderHistory
 {
+    public int OrderId { get; internal set; }
+    public List<StoreFront> StoreFront { get; internal set; }
+    public string ProductName { get; internal set; }
 }
