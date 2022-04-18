@@ -7,18 +7,15 @@ public class ArtHome
 {
 
     private readonly IAsbl _bl;
-    private readonly string cpassword;
-    public void Home()
-    {
-        Home();
-    }
-
     public ArtHome(IAsbl bl)
     {
         _bl = bl;
     }
 
-    private void Home(Customer customer)
+    private readonly string Cpassword;
+
+
+    public void Home()
     {
         Console.WriteLine("Welcome to The Art Shop!");
         Console.WriteLine("What would you like to do?");
@@ -71,14 +68,14 @@ public class ArtHome
     {
 
         Login:
-        Console.WriteLine("Please enter your email");
-        string CustomerEmail = Console.ReadLine().Trim();
+        Console.WriteLine("Please enter your cName");
+        string cName = Console.ReadLine().Trim();
 
         List<Customer> Customers = _bl.GetAllCustomers();
 
         foreach (Customer Customer in Customers)
         {
-            if (Customer.CustomerEmail == CustomerEmail)
+            if (Customer.cName == cName)
             {
                 Cpassword:
                 Console.WriteLine("Enter your corresponding password: ");
@@ -113,7 +110,7 @@ public class ArtHome
             }
         }
 
-        Console.WriteLine("Could not find an account with that email.");
+        Console.WriteLine("Could not find an account with that cName.");
         AltOption:
         Console.WriteLine("Would you like to try again? [1] Yes [2] No.");
         string Option = Console.ReadLine().Trim();
@@ -131,23 +128,23 @@ public class ArtHome
 
     public Customer Account()
     {
-        return Account(cpassword);
+        return Account(Cpassword);
     }
 
-    public Customer Account(string cpassword)
+    public Customer Account(string Cpassword)
     {
         Account:
-        Console.WriteLine("Enter email: ");
-        string CustomerEmail = Console.ReadLine().Trim();
+        Console.WriteLine("Enter cName: ");
+        string cName = Console.ReadLine().Trim();
 
         List<Customer> Customers = _bl.GetAllCustomers();
 
         foreach (Customer Customer in Customers)
         {
-            if (Customer.CustomerEmail == CustomerEmail)
+            if (Customer.cName == cName)
             {
                 CustInput:
-                Console.WriteLine("That Customer email is already taken. Try Again?[Y/N]");
+                Console.WriteLine("That Customer cName is already taken. Try Again?[Y/N]");
                 string custInput = Console.ReadLine().Trim().ToUpper();
 
                 if (custInput == "N")
@@ -167,7 +164,7 @@ public class ArtHome
         }
 
         Console.WriteLine("Enter a password");
-        string Cpassword = Console.ReadLine().Trim();
+        Cpassword = Console.ReadLine().Trim();
 
         Customer newCustomer = new Customer();
 

@@ -5,8 +5,6 @@ namespace UI;
 
 public class CustomerView
 {
-    private readonly IAsbl _bl;
-    private Customer _Customer = new Customer();
     private ShopCart ShopCart = new ShopCart();
     private StoreFront currentStoreFront = new StoreFront();
     private IAsbl bl;
@@ -20,9 +18,7 @@ public class CustomerView
 
     public void ArtHome()
     {
-        List<StoreFront> StoreFronts = _bl.GetAllStoreFronts();
-
-        Console.WriteLine("==================================================================");
+        List<StoreFront> StoreFronts = bl.GetAllStoreFronts();
 
         StoreFrontLocation:
         Console.WriteLine("Select a StoreFront to start shopping or View your order history"); 
@@ -59,7 +55,7 @@ public class CustomerView
             goto StoreFrontLocation;
         }
 
-        currentStoreFront = _bl.getStoreFrontInv(currentStoreFront);
+        currentStoreFront = bl.getStoreFrontInv(currentStoreFront);
         string result = Home();
 
         if (result == "3")
@@ -224,6 +220,17 @@ public class CustomerView
     }
 
     private StoreFront StoreFrontInv()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is CustomerView view &&
+               EqualityComparer<IAsbl>.Default.Equals(bl, view.bl);
+    }
+
+    public override int GetHashCode()
     {
         throw new NotImplementedException();
     }

@@ -1,8 +1,10 @@
 using BL;
+using DL;
+using Models;
 
 namespace UI;
 
-public class ManagerView
+public class ManagerView : Customer
 {
     private readonly IAsbl _bl;
     
@@ -94,7 +96,7 @@ public class ManagerView
 
         foreach (OrderHistory order in OrderHistorySF)
         {
-            Console.WriteLine(value: $"{order.Customeremail} | {order.DateOrdered} |${order.ArtSupplyPrice} | {OrderHistory.ProductName} | {order.ArtSupplyQty} Qty.");
+            Console.WriteLine(value: $"{order.cName} | {order.DateOrdered} |${order.ArtSupplyPrice} | {order.ProductName} | {order.ArtSupplyQty} Qty.");
         }
     }
 }
