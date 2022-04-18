@@ -1,3 +1,4 @@
+using BL;
 using Models;
 
 namespace UI;
@@ -8,11 +9,13 @@ public class CustomerView
     private Customer _Customer = new Customer();
     private ShopCart ShopCart = new ShopCart();
     private StoreFront currentStoreFront = new StoreFront();
+    private IAsbl bl;
+    private Customer customer;
 
-    public CustomerView(IAsbl bl, Customer Customer)
+    public CustomerView(BL.IAsbl bl, Customer customer)
     {
-        _bl = bl;
-        _Customer = Customer;
+        this.bl = bl;
+        this.customer = customer;
     }
 
     public void ArtHome()
@@ -223,17 +226,5 @@ public class CustomerView
     private StoreFront StoreFrontInv()
     {
         throw new NotImplementedException();
-    }
-
-
-    private void ViewOrderHistory()
-    {
-        List<OrderHistory> CustomerOrderHistory = _bl.GetOrderHistoryByCustomer(_Customer);
-
-        if (CustomerOrderHistory.Count == 0)
-        {
-            Console.WriteLine("Order History is empty.");
-            return;
-        }
     }
 }

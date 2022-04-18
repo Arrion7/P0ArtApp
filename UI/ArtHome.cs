@@ -7,23 +7,18 @@ public class ArtHome
 {
 
     private readonly IAsbl _bl;
-    private readonly string cPassword;
+    private readonly string cpassword;
+    public void Home()
+    {
+        Home();
+    }
 
     public ArtHome(IAsbl bl)
     {
         _bl = bl;
     }
 
-    public ArtHome(BL.IAsbl bl)
-    {
-    }
-
-    public void Home()
-    {
-        Home();
-    }
-
-    public void Home(Customer customer)
+    private void Home(Customer customer)
     {
         Console.WriteLine("Welcome to The Art Shop!");
         Console.WriteLine("What would you like to do?");
@@ -136,7 +131,7 @@ public class ArtHome
 
     public Customer Account()
     {
-        return Account(cPassword);
+        return Account(cpassword);
     }
 
     public Customer Account(string cpassword)
