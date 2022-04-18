@@ -20,7 +20,7 @@ public class ArtHome
 
     public void Home()
     {
-        Home(Customer);
+        Home();
     }
 
     public void Home(Customer customer)
@@ -136,6 +136,11 @@ public class ArtHome
 
     public Customer Account()
     {
+        return Account(Cpassword);
+    }
+
+    public Customer Account(string cpassword)
+    {
         Account:
         Console.WriteLine("Enter email: ");
         string CustomerEmail = Console.ReadLine().Trim();
@@ -172,7 +177,7 @@ public class ArtHome
         Customer newCustomer = new Customer();
 
         newCustomer.CustomerEmail = CustomerEmail;
-        newCustomer.Cpassword = cPassword;
+        newCustomer.Cpassword = cpzassword;
 
         _bl.addCustomer(newCustomer);
 
@@ -180,13 +185,14 @@ public class ArtHome
     }
 }
 
-internal class Manager
+public class Manager
 {
-    internal readonly object Manager;
 
     public Manager(IAsbl bl, Manager manager)
     {
     }
+
+    public object Manager { get; internal set; }
 
     public static explicit operator Manager(Customer v)
     {

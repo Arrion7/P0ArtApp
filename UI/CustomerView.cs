@@ -146,21 +146,19 @@ public class CustomerView
         }
     }
 
-    private void AddProduct()
+    private bool Checkout()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddProduct()
     {
         ArtSupplyToAdd:
-        StoreFrontInv();
+        StoreFront value = this.StoreFrontInv();
 
         Console.WriteLine("Which Art Supply would you like to add:");
         string Option = Console.ReadLine().Trim();
         int productId;
-
-        //Explain 
-
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.File("../Logs/ExceptionLogging.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
 
         try
         {
@@ -169,14 +167,9 @@ public class CustomerView
         catch (Exception z)
         {
             Console.WriteLine($"Invalid Input");
-            Log.Information($"Exception Caught: {z}");
             goto ArtSupplyToAdd;
         }
-        finally
-        {
-            Log.CloseAndFlush();
-        }
-
+        
         if (productId > currentStoreFront.StoreFrontInv.Count || productId < 0)
         {
             Console.WriteLine("Invalid Input");
@@ -191,26 +184,15 @@ public class CustomerView
                 Console.WriteLine("How many would you like:");
                 int qty;
 
-                Log.Logger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
-                    .WriteTo.File("../Logs/ExceptionLogging.txt", rollingInterval: RollingInterval.Day)
-                    .CreateLogger();
-
                 try
                 {
                     qty = Convert.ToInt32(Console.ReadLine());
                 }
-                catch (Exception z)
+                catch (Exception)
                 {
                     Console.WriteLine($"Invalid Input");
-                    Log.Information($"Exception Caught: {z}");
                     goto QuantityArt;
                 }
-                finally
-                {
-                    Log.CloseAndFlush();
-                }
-
                 if (qty > product.Quantity)
                 {
                     Console.WriteLine("[The current StoreFront does not have the requested quantity.");
@@ -238,24 +220,20 @@ public class CustomerView
         }
     }
 
+    private StoreFront StoreFrontInv()
+    {
+        throw new NotImplementedException();
+    }
+
     Product product;
 
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.File("../Logs/ExceptionLogging.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
-
-                foreach (Product ArtSupply in currentStoreFront.StoreFrontInv)
+    foreach (Product ArtSupply in currentStoreFront.StoreFrontInv)
     {
-            if (ArtSupply.Name == product.Name)
-            {
-                ArtSupply.Quantity += product.Quantity;
-            }
+        if (ArtSupply.Name == product.Name)
+        {
+            ArtSupply.Quantity += product.Quantity;
         }
-    }
-    private void StoreFrontInv()
-    {
-        currentStoreFront.DisplayStoreFrontInv();
+        }
     }
 
     private void ViewOrderHistory()

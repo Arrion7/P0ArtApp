@@ -11,35 +11,34 @@ public class DBRepository : IRepository
     {
         _connectionString = connectionString;
     }
-    public Store GetStoreInventory(Store currentStore)
+    public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
     {
 
     }
 
-    public List<User> GetAllUsers()
+    public List<Customer> GetAllCustomers()
     {
 
-        List<User> users = new List<User>();
+        List<Customer> Customers = new List<Customer>();
     }
-    public List<Store> GetAllStores()
+    public List<StoreFront> GetAllStoreFronts()
     {
-        List<Store> stores = new List<Store>();
+        List<StoreFront> StoreFronts = new List<StoreFront>();
     }
 
-    public List<OrderHistory> GetOrderHistoryByUser(User user)
+    public List<OrderHistory> GetOrderHistoryByCustomer(Customer Customer)
     {
-        List<OrderHistory> userOrderHistory = new List<OrderHistory>();
-        List<Store> stores = GetAllStores();
+        List<OrderHistory> CustomerOrderHistory = new List<OrderHistory>();
+        List<StoreFront> StoreFronts = GetAllStoreFronts();
 
-        return userOrderHistory;
+        return CustomerOrderHistory;
     }
 
-    public List<OrderHistory> GetOrderHistoryByStore(Store _store)
+    public List<OrderHistory> GetOrderHistoryByStoreFront(StoreFront _StoreFront)
     {
         
     }
-   
-    public User CreateUser(User userToAdd)
+    public Customer CreateCustomer(Customer CustomerToAdd)
     {
 
     }
@@ -64,37 +63,35 @@ public class DBRepository : IRepository
         
     }
 
+
+    
+
+    public void CreateShopCart(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<StoreFront> GetStoreFronts()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateStoreFrontFrontInv(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
+    {
+        throw new NotImplementedException();
+    }
+
     public StoreFront GetStoreFrontInv(StoreFront currentStoreFront, object currentStoreFront1)
     {
         throw new NotImplementedException();
     }
 
-    public List<Customer> GetAllCustomers()
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<StoreFront> GetAllStoreFronts()
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<OrderHistory> GetOrderHistoryC(Customer Customer)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Customer CreateCustomer(Customer CustomerAdd)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void CreateShopCart(Order order)
     {
         throw new NotImplementedException();
     }
@@ -109,7 +106,7 @@ public class DBRepository : IRepository
         throw new NotImplementedException();
     }
 
-    public StoreFront GetStoreFrontInv(StoreFront currenStoreFront)
+    public List<OrderHistory> GetOrderHistoryC(Customer Customer)
     {
         throw new NotImplementedException();
     }

@@ -17,5 +17,10 @@ using Models;
                 Console.WriteLine($"{i} {product.Name} | {product.Price} | {product.Quantity} QTY.{product.Details}");
             }              
         }
+
+    public object GetAddress()
+    {
+        throw new NotImplementedException();
+    }
 }
 
