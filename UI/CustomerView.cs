@@ -164,7 +164,7 @@ public class CustomerView
         {
             productId = Convert.ToInt32(Option);
         }
-        catch (Exception z)
+        catch (Exception)
         {
             Console.WriteLine($"Invalid Input");
             goto ArtSupplyToAdd;
@@ -195,7 +195,7 @@ public class CustomerView
                 }
                 if (qty > product.Quantity)
                 {
-                    Console.WriteLine("[The current StoreFront does not have the requested quantity.");
+                    Console.WriteLine("[The current StoreFront has sold out.");
                     goto QuantityArt;
                 }
 
@@ -225,16 +225,6 @@ public class CustomerView
         throw new NotImplementedException();
     }
 
-    Product product;
-
-    foreach (Product ArtSupply in currentStoreFront.StoreFrontInv)
-    {
-        if (ArtSupply.Name == product.Name)
-        {
-            ArtSupply.Quantity += product.Quantity;
-        }
-        }
-    }
 
     private void ViewOrderHistory()
     {
@@ -243,15 +233,7 @@ public class CustomerView
         if (CustomerOrderHistory.Count == 0)
         {
             Console.WriteLine("Order History is empty.");
-            Console.WriteLine("==================================================================");
             return;
         }
-
-        foreach (OrderHistory order in CustomerOrderHistory)
-        {
-            Console.WriteLine($"{order.StoreFront.Name} | {order.StoreFront.Address}:\n${order.ArtSupplyPrice} | {order.ProductName} | {order.ArtSupplyQty} QTY. | {order.DateOrdered}");
-        }
-
-        Console.WriteLine("==================================================================");
     }
 }

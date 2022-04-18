@@ -136,7 +136,7 @@ public class ArtHome
 
     public Customer Account()
     {
-        return Account(Cpassword);
+        return Account(cPassword);
     }
 
     public Customer Account(string cpassword)
@@ -176,23 +176,23 @@ public class ArtHome
 
         Customer newCustomer = new Customer();
 
-        newCustomer.CustomerEmail = CustomerEmail;
-        newCustomer.Cpassword = cpzassword;
-
         _bl.addCustomer(newCustomer);
 
         return newCustomer;
     }
 }
 
-public class Manager
+public class NewBaseType
+{
+    public object Manager { get; internal set; }
+}
+
+public class Manager : NewBaseType
 {
 
     public Manager(IAsbl bl, Manager manager)
     {
     }
-
-    public object Manager { get; internal set; }
 
     public static explicit operator Manager(Customer v)
     {
