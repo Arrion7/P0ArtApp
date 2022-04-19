@@ -12,7 +12,6 @@ public class ArtHome
         _bl = bl;
     }
 
-    private readonly string Cpassword;
 
 
     public void Home()
@@ -68,7 +67,7 @@ public class ArtHome
     {
 
         Login:
-        Console.WriteLine("Please enter your cName");
+        Console.WriteLine("Please enter your customer");
         string cName = Console.ReadLine().Trim();
 
         List<Customer> Customers = _bl.GetAllCustomers();
@@ -110,7 +109,7 @@ public class ArtHome
             }
         }
 
-        Console.WriteLine("Could not find an account with that cName.");
+        Console.WriteLine("Could not find an account with that customer name.");
         AltOption:
         Console.WriteLine("Would you like to try again? [1] Yes [2] No.");
         string Option = Console.ReadLine().Trim();
@@ -125,16 +124,10 @@ public class ArtHome
             goto AltOption;
         }
     }
-
     public Customer Account()
     {
-        return Account(Cpassword);
-    }
-
-    public Customer Account(string Cpassword)
-    {
         Account:
-        Console.WriteLine("Enter cName: ");
+        Console.WriteLine("Enter Customer name: ");
         string cName = Console.ReadLine().Trim();
 
         List<Customer> Customers = _bl.GetAllCustomers();
@@ -164,7 +157,7 @@ public class ArtHome
         }
 
         Console.WriteLine("Enter a password");
-        Cpassword = Console.ReadLine().Trim();
+        string Cpassword = Console.ReadLine().Trim();
 
         Customer newCustomer = new Customer();
 

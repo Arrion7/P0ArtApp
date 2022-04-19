@@ -3,24 +3,12 @@ namespace DL;
 
 public interface IRepository
 {
-    StoreFront GetStoreFrontInv(StoreFront currentStoreFront, object currentStoreFront1);
     List<Customer> GetAllCustomers();
-    List<StoreFront> AllStoreFronts { get; }
-
-    List<OrderHistory> GetOrderHistoryC(Customer Customer);
-    List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront);
-    Customer CreateCustomer(Customer CustomerAdd);
-    void CreateOrder(Order order);
-    void CreateShopCart(Order order);
-    List<StoreFront> GetStoreFronts();
-    void AddProduct(Product product);
-    void UpdateStoreFrontInv(Order order);
+    Customer CreateCustomer(Customer customerAdd);
+    void CreateOrder(Order Order);
+    List<StoreFront> GetAllStoreFronts();
     StoreFront GetStoreFrontInv(StoreFront currentStoreFront);
+    List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront);
+    List<OrderHistory> GetOrderHistoryC(Customer Customer);
 }
 
-public class OrderHistory
-{
-    public int OrderId { get; internal set; }
-    public List<StoreFront>? StoreFront { get; internal set; }
-    public string? ProductName { get; internal set; }
-}

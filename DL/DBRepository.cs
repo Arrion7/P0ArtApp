@@ -7,24 +7,18 @@ public class DBRepository : IRepository
 {
     private readonly string _connectionString;
 
+    public List<StoreFront> AllStoreFronts => throw new NotImplementedException();
+
     public DBRepository(string connectionString)
     {
         _connectionString = connectionString;
     }
-
-    List<StoreFront> IRepository.AllStoreFronts => throw new NotImplementedException();
-
-    void IRepository.CreateOrder(Order order)
+    public void CreateOrder(Order order)
     {
 
     }
 
-    public void CreateCart(Order order)
-    {
-        
-    }
-
-    void IRepository.AddProduct(Product product)
+    public void CreateShopCart(Order order)
     {
         
     }
@@ -34,30 +28,17 @@ public class DBRepository : IRepository
         
     }
 
-
-    
-
-    void IRepository.CreateShopCart(Order order)
+    public StoreFront GetStoreFrontInv(StoreFront currentStoreFront, object currentStoreFront1)
     {
         throw new NotImplementedException();
     }
 
-    List<StoreFront> IRepository.GetStoreFronts()
+    public List<Customer> GetAllCustomers()
     {
         throw new NotImplementedException();
     }
 
-    public void UpdateStoreFrontFrontInv(Order order)
-    {
-        throw new NotImplementedException();
-    }
-
-    StoreFront IRepository.GetStoreFrontInv(StoreFront currentStoreFront)
-    {
-        throw new NotImplementedException();
-    }
-
-    StoreFront IRepository.GetStoreFrontInv(StoreFront currentStoreFront, object currentStoreFront1)
+    public List<OrderHistory> GetOrderHistoryC(Customer Customer)
     {
         throw new NotImplementedException();
     }
@@ -67,27 +48,47 @@ public class DBRepository : IRepository
         throw new NotImplementedException();
     }
 
-    public List<StoreFront> GetStoreFronts()
-    {
-        throw new NotImplementedException();
-    }
-
-    void IRepository.UpdateStoreFrontInv(Order order)
-    {
-        throw new NotImplementedException();
-    }
-
-    List<OrderHistory> IRepository.GetOrderHistoryC(Customer Customer)
-    {
-        throw new NotImplementedException();
-    }
-
-    List<Customer> IRepository.GetAllCustomers()
-    {
-        throw new NotImplementedException();
-    }
-
     public Customer CreateCustomer(Customer CustomerAdd)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddProduct(Product product)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateStoreFrontInv(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Customer addCustomer(Customer customerAdd)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void addToOrder(Order Order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<StoreFront> GetAllStoreFronts()
+    {
+        throw new NotImplementedException();
+    }
+
+    public StoreFront StoreFrontInv(StoreFront currentStoreFront)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Customer AddCustomer(Customer customerAdd)
     {
         throw new NotImplementedException();
     }

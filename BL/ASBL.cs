@@ -1,5 +1,4 @@
 using DL;
-using OrderHistory = DL.OrderHistory;
 
 namespace BL;
 
@@ -12,16 +11,26 @@ public class Asbl : IAsbl
         _repo = repo;
     }
 
-    public void addToOrder(Order order)
+    public List<Customer> GetAllCustomers()
+    {
+        return _repo.GetAllCustomers();
+    }
+
+    public Customer AddCustomer(Customer customerAdd)
+    {
+        return _repo.CreateCustomer(customerAdd);
+    }
+
+    public void AddOrder(Order order)
     {
         _repo.CreateOrder(order);
     }
 
     public List<StoreFront> GetAllStoreFronts()
     {
-        return _repo.GetStoreFronts();
+        return _repo.GetAllStoreFronts();
     }
-
+    
     public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
     {
         return _repo.GetStoreFrontInv(currentStoreFront);
@@ -39,8 +48,38 @@ public class Asbl : IAsbl
         return OrderHistoryC;
     }
 
-}
+    List<Customer> IAsbl.GetAllCustomers()
+    {
+        throw new NotImplementedException();
+    }
 
-public interface IAsbl
-{
+    Customer IAsbl.addCustomer(Customer customerAdd)
+    {
+        throw new NotImplementedException();
+    }
+
+    void IAsbl.addToOrder(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
+    List<StoreFront> IAsbl.GetAllStoreFronts()
+    {
+        throw new NotImplementedException();
+    }
+
+    StoreFront IAsbl.getStoreFrontInv(StoreFront currentStoreFront)
+    {
+        throw new NotImplementedException();
+    }
+
+    List<OrderHistory> IAsbl.GetOrderHistorySF(StoreFront _StoreFront)
+    {
+        throw new NotImplementedException();
+    }
+
+    List<OrderHistory> IAsbl.GetOrderHistoryC(Customer customer)
+    {
+        throw new NotImplementedException();
+    }
 }
