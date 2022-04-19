@@ -1,3 +1,4 @@
+using System.Data;
 using Microsoft.Data.SqlClient;
 using Models;
 
@@ -77,7 +78,7 @@ public class DBRepository : IRepository
 
         foreach (Product product in order.ShopCart.AllProducts())
         {
-            cmd = new SqlCommand("INSERT INTO Cart (ProductId, Quantity, OrderId) OUTPUT INSERTED.Id VALUES (@productId, @quantity, @orderId)", connection);
+            cmd = new SqlCommand("INSERT INTO ShopCart (ProductId, Quantity, OrderId) OUTPUT INSERTED.Id VALUES (@productId, @quantity, @orderId)", connection);
             cmd.Parameters.AddWithValue("@productId", product.Id);
             cmd.Parameters.AddWithValue("@quantity", product.Quantity);
             cmd.Parameters.AddWithValue("@orderId", order.Id);
@@ -121,32 +122,198 @@ public class DBRepository : IRepository
         connection.Close();
 
         return Customers;
-
     }
 
     public List<StoreFront> GetAllStoreFronts()
     {
-        throw new NotImplementedException();
+        List<StoreFront> StoreFronts = new List<StoreFront>();
+
+        SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        SqlCommand cmd = new SqlCommand("SELECT * FROM StoreFront", connection);
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int id = reader.GetInt32(0);
+            string name = reader.GetString(1);
+            string address = reader.GetString(2);
+
+            StoreFront StoreFront = new StoreFront
+            {
+                Id = id,
+                Name = name,
+                Address = address
+            };
+
+            StoreFronts.Add(StoreFront);
+        }
+
+        reader.Close();
+        connection.Close();
+
+        return StoreFronts;
+
     }
 
     public List<OrderHistory> GetOrderHistoryC(Customer Customer)
     {
-        throw new NotImplementedException();
+        List<OrderHistory> OrderHistoryC = new List<OrderHistory>();
+        List<StoreFront> StoreFronts = GetAllStoreFronts();
+
+        SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        SqlCommand cmd = new SqlCommand("SELECT Orders.Id, StoreFrontId, CustomerId, DateOrdered, Quantity, Product.Name, Product.Price, TotalPrice FROM Orders JOIN ShopCart ON (ShopCart.OrderId = Orders.Id) JOIN StoreFront ON (StoreFront.Id = Orders.StoreFrontId) JOIN Product ON (Product.Id = Cart.ProductId) WHERE CustomerId = @customerId ORDER BY StoreFrontId;", connection);
+        cmd.Parameters.AddWithValue("@customerId", Customer.Id);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int id = reader.GetInt32(0);
+            int StoreFrontId = reader.GetInt32(1);
+            DateTime date = reader.GetDateTime(3);
+            int ArtSupplyQty = reader.GetInt32(4);
+            string ArtSupplyName = reader.GetString(5);
+            double ArtSupplyPrice = reader.GetDouble(6);
+            double totalPrice = reader.GetDouble(7);
+
+            OrderHistory order = new OrderHistory
+            {
+                OrderId = id,
+                ProductName = ArtSupplyName,
+                StoreFront = StoreFrontId,
+                TotalPrice = (decimal)totalPrice,
+                ArtSupplyPrice = (decimal)ArtSupplyPrice,
+                ArtSupplyQty = ArtSupplyQty,
+                DateOrdered = date,
+            };
+
+            foreach (StoreFront StoreFront in StoreFronts)
+            {
+                if (StoreFront.Id == StoreFrontId)
+                {
+                    order.StoreFront = StoreFront;
+                    break;
+                }
+            }
+
+            OrderHistoryC.Add(order);
+        }
+        connection.Close();
+
+        return OrderHistoryC;
+
     }
 
     public List<OrderHistory> GetOrderHistorySF(StoreFront _StoreFront)
     {
-        throw new NotImplementedException();
+        List<OrderHistory> OrderHistorySF = new List<OrderHistory>();
+        List<Customer> Customers = GetAllCustomers();
+
+        SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+
+        SqlCommand cmd = new SqlCommand("SELECT Orders.Id, CustomerId, DateOrdered, Quantity, Product.Name, TotalPrice, StoreFrontId, Price FROM Orders JOIN Cart ON (Cart.OrderId = Orders.Id) JOIN StoreFront ON (StoreFront.Id = Orders.StoreFrontId) JOIN Product ON (Product.Id = Cart.ProductId) WHERE StoreFrontId = @StoreFrontId ORDER BY StoreFrontId;", connection);
+        cmd.Parameters.AddWithValue("@StoreFrontId", _StoreFront.Id);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int id = reader.GetInt32(0);
+            int customerId = reader.GetInt32(1);
+            DateTime date = reader.GetDateTime(2);
+            int ArtSupplyQty = reader.GetInt32(3);
+            string ArtSupplyName = reader.GetString(4);
+            double totalPrice = reader.GetDouble(5);
+            int StoreFrontId = reader.GetInt32(6);
+            double ArtSupplyPrice = reader.GetDouble(7);
+
+            OrderHistory order = new OrderHistory
+            {
+                OrderId = id,
+                ProductName = ArtSupplyName,
+                StoreFront = StoreFrontId,
+                TotalPrice = (decimal)totalPrice,
+                ArtSupplyQty = ArtSupplyQty,
+                DateOrdered = date,
+                ArtSupplyPrice = (decimal)ArtSupplyPrice
+            };
+
+            foreach (Customer Customer in Customers)
+            {
+                if (customerId == Customer.Id)
+                {
+                    order.cName = Customer;
+                    break;
+                }
+            }
+            OrderHistorySF.Add(order);
+        }
+
+        reader.Close();
+        connection.Close();
+
+        return OrderHistorySF;
+
     }
 
     public StoreFront GetStoreFrontInv(StoreFront currentStoreFront)
     {
-        throw new NotImplementedException();
+        List<Product> StoreFrontInv = new List<Product>();
+
+        DataSet StoreFrontInvSet = new DataSet();
+
+        SqlConnection connection = new SqlConnection(_connectionString);
+        SqlCommand cmd = new SqlCommand("SELECT ProductId, StoreFrontId, Product.Name as ProductName, Details, Price, Quantity FROM StoreFrontInv JOIN Product ON (Product.Id = ProductId) JOIN StoreFront ON (StoreFront.Id = StoreFrontId) WHERE StoreFrontId = @id;", connection);
+        cmd.Parameters.AddWithValue("@id", currentStoreFront.Id);
+
+        SqlDataAdapter StoreFrontInvAdapter = new SqlDataAdapter(cmd);
+
+        StoreFrontInvAdapter.Fill(StoreFrontInvSet, "StoreFrontInvTable");
+        DataTable? StoreFrontInvTable = StoreFrontInvSet.Tables["StoreFrontInvTable"];
+        if (StoreFrontInvTable != null && StoreFrontInvTable.Rows.Count > 0)
+        {
+            foreach (DataRow row in StoreFrontInvTable.Rows)
+            {
+                Product product = new Product();
+
+                product.Id = (int)row["ProductId"];
+                product.Name = (string)row["ProductName"];
+                product.Details = (string)row["Details"];
+                product.Price = (decimal)(double)row["Price"];
+                product.Quantity = (int)row["Quantity"];
+
+                StoreFrontInv.Add(product);
+            }
+        }
+        currentStoreFront.StoreFrontInv = StoreFrontInv;
+
+        return currentStoreFront;
+
     }
 
     public void UpdateStoreFrontInv(Order order)
     {
-        
+        SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+        SqlCommand cmd;
+
+        foreach (Product product in order.StoreFront.StoreFrontInv)
+        {
+            cmd = new SqlCommand("UPDATE StoreFrontInv SET Quantity = @quantity OUTPUT INSERTED.Id WHERE ProductId = @productId AND StoreFrontId = @StoreFront", connection);
+            cmd.Parameters.AddWithValue("@quantity", product.Quantity);
+            cmd.Parameters.AddWithValue("@productId", product.Id);
+            cmd.Parameters.AddWithValue("@StoreFront", order.StoreFront.Id);
+
+            int id = (int)cmd.ExecuteScalar();
+        }
+
+        connection.Close();
     }
 
-}
+    }
+
