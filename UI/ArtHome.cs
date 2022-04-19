@@ -7,6 +7,8 @@ public class ArtHome
 {
 
     private readonly IAsbl _bl;
+    private readonly Manager customer;
+
     public ArtHome(IAsbl bl)
     {
         _bl = bl;
@@ -18,8 +20,8 @@ public class ArtHome
     {
         Console.WriteLine("Welcome to The Art Shop!");
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("[1] Create an Account");
-        Console.WriteLine("[2] Login into existing account");
+        Console.WriteLine("[1] Login into existing account");
+        Console.WriteLine("[2] Create an Account");
 
         Login:
         string reply = Console.ReadLine().Trim();
@@ -52,22 +54,28 @@ public class ArtHome
         {
             if (Customer.IsManager == true)
             {
-                Manager manager = (Manager)Customer;
-                ManagerView managerView = new ManagerView();
+                Manager manager = (Manager)customer;
+                new ManagerView(_bl, manager).ManagerHome();
 
+            }
+            else
+            {
+                Customer customer = Customer;
+                new CustomerView(_bl, Customer).ArtHome();
             }
 
             new CustomerView(_bl, Customer).ArtHome();
 
         }
         Console.WriteLine("Logged Out.");
+
     }
 
     private Customer Login()
     {
 
         Login:
-        Console.WriteLine("Please enter your customer");
+        Console.WriteLine("Please enter your customer name.");
         string cName = Console.ReadLine().Trim();
 
         List<Customer> Customers = _bl.GetAllCustomers();
@@ -118,6 +126,11 @@ public class ArtHome
         {
             goto Login;
         }
+        else if (Option == "2")
+        {
+            Customer customer = Account();
+            return customer;
+        }
         else
         {
             Console.WriteLine("Invalid Input");
@@ -137,7 +150,7 @@ public class ArtHome
             if (Customer.cName == cName)
             {
                 CustInput:
-                Console.WriteLine("That Customer cName is already taken. Try Again?[Y/N]");
+                Console.WriteLine("That Customer Name is already taken. Try Again?[Y/N]");
                 string custInput = Console.ReadLine().Trim().ToUpper();
 
                 if (custInput == "N")
@@ -179,8 +192,4 @@ public class Manager : NewBaseType
     {
     }
 
-    public static explicit operator Manager(Customer v)
-    {
-        throw new NotImplementedException();
-    }
 }

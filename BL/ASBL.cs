@@ -48,38 +48,19 @@ public class Asbl : IAsbl
         return OrderHistoryC;
     }
 
-    List<Customer> IAsbl.GetAllCustomers()
+    public Customer addCustomer(Customer customerAdd)
     {
-        throw new NotImplementedException();
+        return _repo.CreateCustomer(customerAdd);
     }
 
-    Customer IAsbl.addCustomer(Customer customerAdd)
+    public void addToOrder(Order order)
     {
-        throw new NotImplementedException();
+        _repo.CreateOrder(order);
     }
 
-    void IAsbl.addToOrder(Order order)
-    {
-        throw new NotImplementedException();
-    }
-
-    List<StoreFront> IAsbl.GetAllStoreFronts()
-    {
-        throw new NotImplementedException();
-    }
-
-    StoreFront IAsbl.getStoreFrontInv(StoreFront currentStoreFront)
-    {
-        throw new NotImplementedException();
-    }
-
-    List<OrderHistory> IAsbl.GetOrderHistorySF(StoreFront _StoreFront)
-    {
-        throw new NotImplementedException();
-    }
-
-    List<OrderHistory> IAsbl.GetOrderHistoryC(Customer customer)
+    public StoreFront getStoreFrontInv(StoreFront currentStoreFront)
     {
         throw new NotImplementedException();
     }
 }
+

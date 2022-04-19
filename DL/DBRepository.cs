@@ -32,9 +32,9 @@ public class DBRepository : IRepository
         {
             customerAdd.Id = (int)cmd.ExecuteScalar();
         }
-        catch (Exception ex)
+        catch (Exception z)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(z.Message);
         }
 
         connection.Close();

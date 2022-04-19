@@ -7,10 +7,16 @@ namespace UI;
 public class ManagerView
 {
     private readonly IAsbl _bl;
-    
+    private readonly Manager _manager;
     private StoreFront currentStoreFront = null;
 
-    public ManagerView()
+    public ManagerView(IAsbl bl, Manager manager)
+    {
+        _bl = bl;
+        _manager = manager;
+    }
+
+    public void ManagerHome()
     {
         Console.WriteLine("Manager View");
 

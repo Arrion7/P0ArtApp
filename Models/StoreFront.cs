@@ -22,5 +22,10 @@ using Models;
     {
         throw new NotImplementedException();
     }
+
+    public static implicit operator int(StoreFront v)
+    {
+        throw new NotImplementedException();
+    }
 }
 
