@@ -4,11 +4,9 @@ using Models;
 
 namespace UI;
 
-public class ManagerView : Customer
+public class ManagerView
 {
     private readonly IAsbl _bl;
-
-    private Manager _customer = new Manager();
     
     private StoreFront currentStoreFront = null;
 

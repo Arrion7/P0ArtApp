@@ -1,23 +1,24 @@
 
 namespace Models;
 using System.Text.RegularExpressions;
-using Serilog;
 
-public class Employee : User
+
+public class Manager : Customer
 {
+    public string ProductName { get; private set; }
+
     public void AddProduct()
     {
-    ProductName:
+        ProductName:
         Product newProduct = new Product();
         string regularExpression = "^[a-zA-Z ]+$";
         Regex regex = new Regex(regularExpression);
 
-        Console.WriteLine("What is the name of the product:");
-        string productName = Console.ReadLine();
+        Console.WriteLine($"What is the name of the art supply you would like to add?");
 
-        if (regex.IsMatch(productName))
+        if (regex.IsMatch(ProductName))
         {
-            newProduct.Name = productName;
+            newProduct.Name = ProductName;
         }
         else
         {
@@ -25,18 +26,18 @@ public class Employee : User
             goto ProductName;
         }
 
-    ProductDesc:
-        Console.WriteLine("Give a description of the product:");
-        string productDesc = Console.ReadLine();
+        ProductDetails:
+        Console.WriteLine("Give a Details of the product:");
+        string productDetails = Console.ReadLine();
 
-        if (regex.IsMatch(productDesc))
+        if (regex.IsMatch(productDetails))
         {
-            newProduct.Description = productDesc;
+            newProduct.Details = productDetails;
         }
         else
         {
             Console.WriteLine("Invalid Input, only letters allowed");
-            goto ProductDesc;
+            goto ProductDetails;
         }
 
     ProductPrice:

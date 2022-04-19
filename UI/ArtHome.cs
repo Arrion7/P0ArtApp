@@ -53,7 +53,7 @@ public class ArtHome
             if (Customer.IsManager == true)
             {
                 Manager manager = (Manager)Customer;
-                object manager1 = new Manager(_bl, manager).Manager;
+                ManagerView managerView = new ManagerView();
 
             }
 
