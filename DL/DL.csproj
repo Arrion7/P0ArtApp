@@ -4,9 +4,7 @@
     <ProjectReference Include="..\models\Models.csproj" />
   </ItemGroup>
 
- <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-  </ItemGroup>
+
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
